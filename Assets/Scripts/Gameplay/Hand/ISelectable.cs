@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace CCG.Gameplay
+namespace CCG.Gameplay.Hand
 {
     public interface ISelectable
     {
@@ -9,5 +9,5 @@ namespace CCG.Gameplay
         public event Action Selected;
         public event Action Deselected;
         public bool isSelectable { get; set; }
-    }    
+    }
 }

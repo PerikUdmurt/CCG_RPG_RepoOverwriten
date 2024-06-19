@@ -19,9 +19,11 @@ namespace CCG.Gameplay
 
         public async void Enter(InitCardPayload payload)
         {
+            card.SetAvailability(false,false,false);
             UpdateInfo(payload.CardStaticData);
             await SetImage(payload);
-            card.StateMachine.Enter(CardState.inStuckOfCard);
+            PlayInitAnimation();
+            card.StateMachine.Enter(CardState.inStuckOfCard, card.Stack);
         }
 
         public void Exit()
@@ -45,6 +47,11 @@ namespace CCG.Gameplay
             Sprite sprite = await assetProvider.Load<Sprite>(reference);
             card.SetImage(sprite);
             Debug.Log("SetImage");
+        }
+
+        private void PlayInitAnimation()
+        {
+            //Сделать анимацию доставания из колоды
         }
     }
 

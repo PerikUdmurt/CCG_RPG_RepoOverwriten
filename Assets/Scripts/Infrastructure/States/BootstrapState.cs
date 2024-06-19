@@ -8,9 +8,6 @@ namespace CCG.Infrastructure
 {
     public class BootstrapState : IState
     {
-        private const string LoadSceneName = "Gameplay";
-        private const string InitialSceneName = "Initial";
-
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly ICardStaticDataService _cardStaticDataService;
@@ -26,7 +23,7 @@ namespace CCG.Infrastructure
 
         public void Enter()
         {
-            _sceneLoader.Load(InitialSceneName, EnterLoadLevel);
+            _sceneLoader.Load(SceneName.Initial, EnterLoadLevel);
             _cardStaticDataService.LoadModules();
             _assetProvider.Initialize();
         }

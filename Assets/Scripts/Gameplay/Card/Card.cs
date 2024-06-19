@@ -13,18 +13,13 @@ namespace CCG.Gameplay
     [Serializable]
     public class Card : MonoBehaviour, ICard, ICustomPool
     {
-        [SerializeField] private CardType cardID; 
+        private CardType cardID;
 
-        public CardType CardID 
-        { 
-            get {  return cardID; }
+        public CardType CardID
+        {
+            get { return cardID; }
             set { cardID = value; }
         }
-        public string Name { get; set; }
-        public string CardDescription { get; set; }
-        public DeckType DeckType { get; set; }
-        public int ValueOfCard { get; set; }
-        public List<CardEffect> Effects { get; set; }
 
         public CardStateMachine StateMachine { get; private set; }
         [HideInInspector] public bool inCardSlot;
@@ -32,6 +27,12 @@ namespace CCG.Gameplay
 
         private SpriteRenderer _spriteRenderer;
 
+        public string Name { get; set; }
+        public string CardDescription { get; set; }
+        public DeckType DeckType { get; set; }
+        public StackOfCard Stack { get; set; }
+        public int ValueOfCard { get; set; }
+        public List<CardEffect> Effects { get; set; }
         public IDragable Dragable { get; set; }
         public ISelectable Selectable { get; set; }
         public IUsable Usable { get; set; }
@@ -55,22 +56,28 @@ namespace CCG.Gameplay
             return _spriteRenderer.sprite;
         }
 
+        public void SetAvailability(bool dragableValue, bool usableValue, bool selectableValue)
+        {
+            Dragable.isDragable = dragableValue;
+            Usable.isUsable = usableValue;
+            Selectable.isSelectable = selectableValue;
+        }
+
         public void OnCreated()
         {
+            StateMachine.Enter(CardState.inObjectPool);
             gameObject.SetActive(false);
-            Debug.Log("OnCreated");
         }
 
         public void OnReceipt()
         {
             gameObject.SetActive(true);
-            Debug.Log("OnPeceipt");
         }
 
         public void OnReleased()
         {
+            StateMachine.Enter(CardState.inObjectPool);
             gameObject?.SetActive(false);
-            Debug.Log("OnReleased");
         }
 
         private void RegisterComponents()

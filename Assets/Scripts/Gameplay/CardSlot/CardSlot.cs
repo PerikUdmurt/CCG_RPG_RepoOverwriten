@@ -61,17 +61,17 @@ namespace CCG.Gameplay
 
         public void OnCreated()
         {
-
+            gameObject.SetActive(false);
         }
 
         public void OnReceipt()
         {
-           
+            gameObject.SetActive(true);
         }
 
         public void OnReleased()
         {
-           
+            gameObject.SetActive(false);
         }
     }
 

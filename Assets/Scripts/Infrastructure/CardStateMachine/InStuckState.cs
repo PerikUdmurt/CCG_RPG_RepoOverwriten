@@ -3,7 +3,7 @@
 
     public partial class CardStateMachine
     {
-        public class InStuckState : ICardState
+        public class InStuckState : ICardStatePayloaded<IStackOfCard>
         {
             private ICard card;
 
@@ -12,9 +12,11 @@
                 this.card = card;
             }
 
-            public void Enter()
+            public void Enter(IStackOfCard stackOfCard)
             {
-
+                card.SetAvailability(false, false, false);
+                card.Movable.MoveTo(stackOfCard.CardTransform.position);
+                card.SetAvailability(true, true, true);
             }
 
             public void Exit()

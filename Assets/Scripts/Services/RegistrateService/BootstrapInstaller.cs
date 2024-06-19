@@ -53,7 +53,7 @@ namespace CCG.Infrastructure.Installers
 
         private void BindSpawner()
         {
-            Container.Bind<ISpawner>().To<GameSpawner>().AsTransient();
+            Container.Bind<ISpawner>().To<GameSpawner>().AsSingle();
         }
 
         private void BindFactories()

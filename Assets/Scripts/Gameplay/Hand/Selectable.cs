@@ -1,23 +1,24 @@
-using CCG.Gameplay.Hand;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Selectable : MonoBehaviour, ISelectable
+namespace CCG.Gameplay.Hand
 {
-    public bool isSelectable { get; set; } = true;
-
-    public event Action Selected;
-    public event Action Deselected;
-
-    public void Deselect()
+    public class Selectable : MonoBehaviour, ISelectable
     {
-        Deselected?.Invoke();
-    }
+        public bool isSelectable { get; set; }
 
-    public void Select()
-    {
-        Selected?.Invoke();
+        public event Action Selected;
+        public event Action Deselected;
+
+        public void Deselect()
+        {
+            Deselected?.Invoke();
+        }
+
+        public void Select()
+        {
+            Selected?.Invoke();
+        }
     }
 }
+

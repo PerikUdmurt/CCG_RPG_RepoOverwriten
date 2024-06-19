@@ -40,29 +40,39 @@ namespace CCG.Infrastructure.Factory
 
             _assetProvider.CleanUp();
         }
-        public async Task<GameObject> SpawnHand()
+        public async Task<HandController> SpawnHand()
         {
             GameObject resource = await _assetProvider.Load<GameObject>(AssetPath.Hand);
-            GameObject result = GameObject.Instantiate(resource);
-            return result;
+            GameObject gameObj = GameObject.Instantiate(resource);
+            gameObj.TryGetComponent<HandController>(out HandController handController);
+            return handController;
         }
 
-        public async Task<GameObject> SpawnCard(CardType cardType)
+        public async Task<Card> SpawnCard(CardType cardType)
         {
             Card card = await _cardPool.Get();
             CardStaticData data = _cardStaticDataService.GetStaticData(cardType);
             InitCardPayload initCardPayload = new InitCardPayload(data);
             card.StateMachine.Enter(CardState.Init, initCardPayload);
-            return card.gameObject;
+            return card;
         }
 
-        public async Task<GameObject> SpawnCardSlot()
+        public void DespawnCard(Card card)
         {
-            CardSlot cardSlot = await _cardSlotPool.Get();
-            return cardSlot.gameObject;
+            _cardPool.Release(card);
         }
 
-        public async void CreateObjectPools()
+        public async Task<CardSlot> SpawnCardSlot()
+        {
+            return await _cardSlotPool.Get();
+        }
+
+        public void DespawnCardSlot(CardSlot cardSlot)
+        {
+            _cardSlotPool.Release(cardSlot);
+        }
+
+        public async Task CreateObjectPools()
         {
             _cardPool = new CustomPool<Card>(_cardFactory, AssetPath.Card);
             await _cardPool.Fill(30);

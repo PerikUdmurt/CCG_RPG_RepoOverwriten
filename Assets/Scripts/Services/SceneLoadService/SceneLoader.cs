@@ -14,11 +14,9 @@ namespace CCG.Services.SceneLoader
             _coroutineRunner = runner;
         }
 
-        public void Load(string sceneName, Action onLoaded = null)
+        public void Load(SceneName sceneName, Action onLoaded = null)
         {
-            Debug.Log(sceneName);
-            Debug.Log(_coroutineRunner.GetType().Name);
-            _coroutineRunner.StartCoroutine(LoadScene(sceneName, onLoaded));
+            _coroutineRunner.StartCoroutine(LoadScene(sceneName.ToString(), onLoaded));
         }
 
         private IEnumerator LoadScene(string sceneName, Action onLoaded = null)

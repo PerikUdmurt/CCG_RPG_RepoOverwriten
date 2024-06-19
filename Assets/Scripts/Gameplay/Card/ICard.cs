@@ -11,6 +11,7 @@ namespace CCG.Gameplay
         public CardStateMachine StateMachine { get; }
         Sprite GetImage();
         void SetImage(Sprite sprite);
+        void SetAvailability(bool dragableValue, bool usableValue, bool selectableValue);
 
         GameObject gameObject { get;}
 
@@ -25,5 +26,6 @@ namespace CCG.Gameplay
         DeckType DeckType { get; set; }
         int ValueOfCard { get; set; }
         List<CardEffect> Effects { get; set; }
+        StackOfCard Stack { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CCG.Data;
 using CCG.Services.SaveLoad;
+using CCG.Services.SceneLoader;
 using UnityEngine;
 
 namespace CCG.Infrastructure.States
@@ -20,7 +21,7 @@ namespace CCG.Infrastructure.States
         public void Enter()
         {
             LoadProgressOrInitNew();
-            _gameStateMachine.Enter<LoadLevelState,string>(_persistentProgressService.playerProgress.WorldData.PositionOnLevel.sceneName);
+            _gameStateMachine.Enter<LoadLevelState,SceneName>(SceneName.Gameplay);
         }
 
         public void Exit()

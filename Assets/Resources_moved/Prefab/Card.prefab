@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4608109967090293818}
   - component: {fileID: 3327045345882437889}
   - component: {fileID: 9077671376688494284}
-  - component: {fileID: 5588184648588884117}
   - component: {fileID: 5844409292554476230}
+  - component: {fileID: 5500986299015485141}
   - component: {fileID: 3889127415358442128}
   - component: {fileID: 7664108665206824493}
   m_Layer: 3
@@ -103,12 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f0a459331b18e5419684128cce52d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardID: 0
-  Name: 
-  CardDescription: 
-  DeckType: 0
-  ValueOfCard: 0
-  Effects: []
+  cardID: 0
   inCardSlot: 0
   _moveSpeed: 0
 --- !u!114 &3327045345882437889
@@ -136,18 +131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragLerpValue: 0.1
---- !u!114 &5588184648588884117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2653143088271257273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32090e2736cc97146bab65f4028e01f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5844409292554476230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +144,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 1
+--- !u!114 &5500986299015485141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653143088271257273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32090e2736cc97146bab65f4028e01f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &3889127415358442128
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -2,19 +2,15 @@ using CCG.Data;
 using CCG.Gameplay;
 using CCG.Infrastructure.Factory;
 using CCG.Infrastructure.ObjectPool;
-using CCG.Services.Input;
 using CCG.Services.PersistentProgress;
 using CCG.Services.SceneLoader;
 using CCG.StaticData.Cards;
-using CCG.UI;
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace CCG.Infrastructure.States
 {
-    public class LoadLevelState : IPayloadedState<string>
+    public class LoadLevelState : IPayloadedState<SceneName>
     {
         private readonly SceneLoader _sceneLoader;
         private readonly GameStateMachine _gameStateMachine;
@@ -29,7 +25,7 @@ namespace CCG.Infrastructure.States
             _gameSpawner = factory;
             _persistentProgressService = persistentProgressService;
         }
-        public void Enter(string sceneName)
+        public void Enter(SceneName sceneName)
         {
             _gameSpawner.CleanUp();
             _sceneLoader.Load(sceneName, OnLoaded);
@@ -39,7 +35,8 @@ namespace CCG.Infrastructure.States
         {
             _gameSpawner.CreateObjectPools();
             _gameSpawner.SpawnHand();
-            _gameSpawner.SpawnCard(CardType.Strenght);
+            _gameSpawner.SpawnCardSlot();
+
             InformProgressReaders();
         }
 

@@ -23,6 +23,8 @@ namespace CCG.Gameplay.Hand
 
         public void Take()
         {
+            gameObject.TryGetComponent<Card>(out Card card);
+            card.StateMachine.Enter(CardState.isDragging);
             Taken?.Invoke();
         }
     }

@@ -12,15 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be4dd97182830e4c987900339fdb9f4, type: 3}
   m_Name: Coin
   m_EditorClassIdentifier: 
-  CardID: 1
-  CardSprite:
-    m_AssetGUID: b48b068457de3ad46ac9c9d658772a31
-    m_SubObjectName: Strength
-    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_EditorAssetChanged: 1
-  Name: Strength
-  CardDescription: Strength
-  DeckType: 1
+  CardID: 5
+  Name: Coin
+  CardDescription: Coin
+  DeckType: 5
   ValueOfCard: 0
   Effects: []

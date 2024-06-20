@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using CCG.Data;
 using CCG.Infrastructure.AssetProvider;
 using CCG.Infrastructure.Factory;
 using CCG.Infrastructure.States;
 using CCG.Services;
-using CCG.Services.Input;
 using CCG.Services.SaveLoad;
 using CCG.Services.SceneLoader;
 using UnityEngine;

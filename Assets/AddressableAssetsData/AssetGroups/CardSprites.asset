@@ -36,7 +36,7 @@ MonoBehaviour:
     - CardSprite
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2d35792c9854bdd4691e9e9d403f7c24
-    m_Address: Item
+    m_Address: Coin
     m_ReadOnly: 0
     m_SerializedLabels:
     - CardSprite

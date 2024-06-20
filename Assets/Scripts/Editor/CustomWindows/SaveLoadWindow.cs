@@ -26,6 +26,7 @@ namespace CCG.Editor
                 fileText = LoadData(targetFileName);
             }
             GUILayout.Label(fileText);
+            
         }
 
         public string LoadData(string fileName)

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6292685746170993414}
   - component: {fileID: 2881357197103627080}
   - component: {fileID: 907106907174648446}
+  - component: {fileID: 749713910723935409}
   m_Layer: 0
   m_Name: StackOfCard
   m_TagString: Untagged
@@ -121,6 +122,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardTransform: {fileID: 4438586006237762575}
+--- !u!114 &749713910723935409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712958797204661762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a58392bc17561449deb1c570459e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: "\u041A\u043E\u043B\u043E\u0434\u0430"
+  _hintText: "\u0422\u0435\u043A\u0441\u0442 \u0422\u0435\u043A\u0441\u0442 \u0422\u0435\u043A\u0441\u0442"
+  _hintColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &5136602193664781630
 GameObject:
   m_ObjectHideFlags: 0

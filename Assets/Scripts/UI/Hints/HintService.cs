@@ -1,27 +1,29 @@
+using CCG.Infrastructure.AssetProvider;
+using CCG.Infrastructure.Factory;
+using CCG.Infrastructure.ObjectPool;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 namespace CCG.UI.Hints
 {
-    public class HintManager
+    public class HintService: IHintService
     {
         private RectTransform _hintEntryPos;
-        private HintUI.Pool _hintPool;
         private List<HintUI> _hintList = new List<HintUI>();
+        private CustomPool<HintUI> _hintPool;
 
         private RectTransform _currentHintsEntryPoint;
 
-        public HintManager(RectTransform hintsEntryPos, HintUI.Pool hintPool) 
+        public HintService(RectTransform hintsEntryPos, CustomFactory<HintUI> hintFactory) 
         { 
             _hintEntryPos = hintsEntryPos;
             _currentHintsEntryPoint = _hintEntryPos;
-            _hintPool = hintPool;
+            _hintPool = new CustomPool<HintUI>(hintFactory, AssetPath.Hint);
         }
 
         public void CreateHint(string name, string hintText, Color color) 
         {
-            HintUI currentHint = _hintPool.Spawn();
+            HintUI currentHint = _hintPool.Get().Result;
             
             currentHint.transform.SetParent(_currentHintsEntryPoint.transform, false);
             _currentHintsEntryPoint = currentHint.rectTransform;
@@ -32,11 +34,11 @@ namespace CCG.UI.Hints
             _hintList.Add(currentHint);
         }
 
-        public void DeleteHint() 
+        public void DeleteHint()
         { 
             foreach (var hint in _hintList)
             {
-                _hintPool.Despawn(hint);
+                _hintPool.Release(hint);
             }
             _hintList.Clear();
             _currentHintsEntryPoint = _hintEntryPos;

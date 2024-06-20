@@ -1,37 +1,33 @@
+using CCG.Infrastructure;
 using TMPro;
 using UnityEngine;
-using Zenject;
 
 namespace CCG.UI.Hints
 {
-    public class HintUI : MonoBehaviour
+    public class HintUI : MonoBehaviour, ICustomPool
     {
         public TextMeshProUGUI hintName;
         public TextMeshProUGUI description;
         public RectTransform rectTransform;
 
+        public void OnCreated()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void OnReceipt()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void OnReleased()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void Awake()
         {
             rectTransform = GetComponent<RectTransform>();
-        }
-
-        public class Pool: MemoryPool<HintUI> 
-        {
-            protected override void OnCreated(HintUI item)
-            {
-                base.OnCreated(item);
-                item.gameObject.SetActive(false);
-            }
-            protected override void OnSpawned(HintUI item)
-            {
-                base.OnSpawned(item);
-                item.gameObject.SetActive(true);
-            }
-            protected override void OnDespawned(HintUI item)
-            {
-                base.OnDespawned(item);
-                item.gameObject.SetActive(false);
-            }
         }
     }
 }

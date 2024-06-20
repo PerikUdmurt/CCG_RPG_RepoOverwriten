@@ -14,5 +14,8 @@ public class CardEditorScript : Editor
         EditorGUILayout.LabelField("DeckType", myTarget.DeckType.ToString());
         EditorGUILayout.LabelField("Value", myTarget.ValueOfCard.ToString());
         EditorGUILayout.LabelField("CurrentState", myTarget.StateMachine.CurrentState.ToString());
+        EditorGUILayout.LabelField("Usable", myTarget.Usable.isUsable.ToString());
+        EditorGUILayout.LabelField("Selectable", myTarget.Selectable.isSelectable.ToString());
+        EditorGUILayout.LabelField("Dragable", myTarget.Dragable.isDragable.ToString());
     }
 }

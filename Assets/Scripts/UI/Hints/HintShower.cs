@@ -7,14 +7,14 @@ namespace CCG.UI.Hints
     public class HintShower : MonoBehaviour
     {
         private ISelectable _selectableObj;
-        private HintManager _hintManager;
+        private IHintService _hintManager;
 
         [SerializeField] private string _name;
         [SerializeField] private string _hintText;
         [SerializeField] private Color _hintColor;
 
         [Inject]
-        private void Construct(HintManager hintManager)
+        public void Construct(IHintService hintManager)
         {
             _hintManager = hintManager;
         }

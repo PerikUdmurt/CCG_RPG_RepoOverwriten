@@ -34,12 +34,12 @@ namespace CCG.Gameplay
 
             if (!RayDetect().Equals(default(RaycastHit)))
             {
-                if (RayDetect().collider.gameObject.TryGetComponent(out IUsable usableObj) && Input.GetMouseButtonDown(0) && useIsAvailable)
+                if (RayDetect().collider.gameObject.TryGetComponent(out IUsable usableObj) && Input.GetMouseButtonDown(0) && useIsAvailable && usableObj.isUsable)
                 {
                     Use(usableObj);
                 }
 
-                if (RayDetect().collider.gameObject.TryGetComponent(out ISelectable selectableObj)&&selectIsAvailable)
+                if (RayDetect().collider.gameObject.TryGetComponent(out ISelectable selectableObj)&&selectIsAvailable && selectableObj.isSelectable)
                 {
                     Select(selectableObj);
                 }
@@ -49,7 +49,7 @@ namespace CCG.Gameplay
                     currentSelectObj = null;
                 }
 
-                if (RayDetect().collider.gameObject.TryGetComponent(out IDragable dragableObj) && Input.GetMouseButtonDown(0) && dragIsAvailable)
+                if (RayDetect().collider.gameObject.TryGetComponent(out IDragable dragableObj) && Input.GetMouseButtonDown(0) && dragIsAvailable && dragableObj.isDragable)
                 {
                     currentDragableObj = dragableObj;
                     Drag(dragableObj);

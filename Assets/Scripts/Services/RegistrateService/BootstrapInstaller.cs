@@ -1,17 +1,15 @@
-using CCG.Data;
 using CCG.Gameplay;
+using CCG.Infrastructure;
+using CCG.Infrastructure.AssetProvider;
 using CCG.Infrastructure.Factory;
-using CCG.Infrastructure.ObjectPool;
 using CCG.Services;
-using CCG.Services.Input;
 using CCG.Services.SaveLoad;
 using CCG.Services.SceneLoader;
 using System.Linq;
 using UnityEngine;
 using Zenject;
 
-namespace CCG.Infrastructure.Installers
-{
+
     public class BootstrapInstaller : MonoInstaller
     {
         private GameBootstrap GameBootstrap;
@@ -23,6 +21,7 @@ namespace CCG.Infrastructure.Installers
 
             BindFactories();
             BindSpawner();
+        Debug.Log("aaaaaa");
         }
 
         private void BindBootstraper()
@@ -38,21 +37,15 @@ namespace CCG.Infrastructure.Installers
 
         private void BindServices()
         {
-            BindInputService();
             Container.BindInterfacesAndSelfTo<SceneLoader>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<CardStaticDataService>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<AssetProvider.AssetProvider>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<AssetProvider>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DataPersistenceService>().AsSingle().NonLazy();
-        }
-
-        private void BindInputService()
-        {
-            Container.Bind<IInputService>().To<MobileInputService>().AsSingle().NonLazy();
         }
 
         private void BindSpawner()
         {
-            Container.Bind<ISpawner>().To<GameSpawner>().AsSingle();
+            Container.BindInterfacesAndSelfTo<GameSpawner>().AsSingle().NonLazy();
         }
 
         private void BindFactories()
@@ -61,4 +54,3 @@ namespace CCG.Infrastructure.Installers
             Container.BindFactory<CardSlot, CustomFactory<CardSlot>>().FromFactory<CustomFactory<CardSlot>>().NonLazy();
         }
     }
-}

@@ -39,6 +39,7 @@ namespace CCG.Services.SaveLoad
 
         public void SaveGame()
         {
+            gameData.cards.Clear();
             foreach (IDataSaver saver in dataSavers)
             {
                 saver.SaveData(ref gameData);

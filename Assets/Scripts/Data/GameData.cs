@@ -1,5 +1,4 @@
 using CCG.Data;
-using CCG.Gameplay;
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 public class GameData
 {
     public List<CardData> cards;
+
     public GameData()
     {
         cards = new List<CardData>();

@@ -7,17 +7,17 @@ namespace CCG.UI.Hints
     public class CardHintCreator : MonoBehaviour
     {
         private ICard _card;
-        private HintManager _hintManager;
+        private HintService _hintManager;
 
         [Inject]
-        private void Construct(HintManager hintManager)
+        private void Construct(HintService hintService)
         {
-            _hintManager = hintManager;
+            _hintManager = hintService;
         }
 
         private void Awake()
         {
-            _card = GetComponent<Card>();
+            _card = GetComponent<ICard>();
         }
 
         private void OnEnable()

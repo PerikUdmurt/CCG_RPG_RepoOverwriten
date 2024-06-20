@@ -14,17 +14,17 @@ public class GameplayHelperEditor : Editor
     {
         
         myTarget = (GamePlaySceneHelper)target;
-
         HelpBox();
         using (new EditorGUI.DisabledGroupScope(!Application.isPlaying))
         {
             DrawDefaultInspector();
             GameSpawner();
+            EditorGUILayout.Separator();
             SceneLoader();
+            EditorGUILayout.Separator();
             DataPersistentService();
         }
     }
-
     private void GameSpawner()
     {
         GUILayout.Label("GameSpawner", EditorStyles.boldLabel) ;
@@ -39,7 +39,7 @@ public class GameplayHelperEditor : Editor
             myTarget.SpawnCardSlot();
         }
     }
-
+    
     private void SceneLoader()
     {
         GUILayout.Label("SceneLoader", EditorStyles.boldLabel);
@@ -49,7 +49,7 @@ public class GameplayHelperEditor : Editor
             myTarget.LoadScene(sceneName);
         }
     }
-
+    [Separator]
     private void DataPersistentService()
     {
         GUILayout.Label("DataPersistentService", EditorStyles.boldLabel);

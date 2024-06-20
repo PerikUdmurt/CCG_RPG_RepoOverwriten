@@ -1,4 +1,5 @@
-﻿using CCG.Gameplay.Hand;
+﻿using CCG.Data;
+using CCG.Gameplay.Hand;
 using CCG.StaticData.Cards;
 using CCG.StaticData.Effects;
 using System.Collections.Generic;

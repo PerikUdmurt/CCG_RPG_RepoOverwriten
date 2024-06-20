@@ -1,6 +1,3 @@
-using Zenject;
-using CCG.Services.PersistentProgress;
-using CCG.UI;
 using System.Collections.Generic;
 using UnityEngine;
 using CCG.Services;
@@ -60,13 +57,13 @@ namespace CCG.Infrastructure.Factory
         {
             Card card = await _cardPool.Get();
             card.StateMachine.Enter(CardState.Init, cardData);
-            RegisterDataSavers(card.gameObject);
+            Register(card);
             return card;
         }
 
         public void DespawnCard(Card card)
         {
-            UnregisterDataSavers(card.gameObject);
+            Unregister(card);
             _cardPool.Release(card);
         }
 

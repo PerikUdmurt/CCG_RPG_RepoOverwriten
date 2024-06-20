@@ -28,7 +28,6 @@ namespace CCG.Gameplay
             CurrentState = cardState;
             _activeState = state;
             state.Enter();
-            Debug.Log(cardState.ToString());
         }
 
         public void Enter<TPayload>(CardState cardState, TPayload payload)
@@ -38,7 +37,6 @@ namespace CCG.Gameplay
             CurrentState = cardState;
             _activeState = state;
             state.Enter(payload);
-            Debug.Log(cardState.ToString());
         }
 
         private TState GetState<TState>(CardState cardState) where TState: class, IExitableState

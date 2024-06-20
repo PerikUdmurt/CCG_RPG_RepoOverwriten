@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CCG.Data;
 using CCG.Gameplay.Hand;
 using CCG.Infrastructure;
 using CCG.Infrastructure.AssetProvider;
@@ -57,6 +58,7 @@ namespace CCG.Gameplay
 
         public void SaveData(ref GameData gameData)
         {
+            Debug.Log("Сохранена карта");
             CardData cardData = new CardData(this.cardID, Name, CardDescription, DeckType, ValueOfCard, Effects);
             gameData.cards.Add( cardData );
         }

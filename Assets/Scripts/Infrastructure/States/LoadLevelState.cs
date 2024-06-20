@@ -1,50 +1,47 @@
-using CCG.Data;
 using CCG.Gameplay;
 using CCG.Infrastructure.Factory;
-using CCG.Infrastructure.ObjectPool;
-using CCG.Services.PersistentProgress;
+using CCG.Services.SaveLoad;
 using CCG.Services.SceneLoader;
-using CCG.StaticData.Cards;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace CCG.Infrastructure.States
 {
-    public class LoadLevelState : IPayloadedState<SceneName>
+    public class LoadLevelState : IPayloadedState<SceneName>, IDataLoader
     {
         private readonly SceneLoader _sceneLoader;
         private readonly GameStateMachine _gameStateMachine;
         private readonly ISpawner _gameSpawner;
-        private readonly IPersistentProgressService _persistentProgressService;
-        private CustomPool<Card> _cardPool;
+        private readonly IDataPersistentService _dataPersistentService;
 
-        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ISpawner factory, IPersistentProgressService persistentProgressService)
+        public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, ISpawner factory, IDataPersistentService dataPersistentService)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _gameSpawner = factory;
-            _persistentProgressService = persistentProgressService;
+            _dataPersistentService = dataPersistentService;
         }
         public void Enter(SceneName sceneName)
         {
             _gameSpawner.CleanUp();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
+        public void LoadData(GameData gameData)
+        {
+            SpawnCardsByLoadData(gameData);
+        }
 
         private void OnLoaded()
         {
             _gameSpawner.CreateObjectPools();
             _gameSpawner.SpawnHand();
-            _gameSpawner.SpawnCardSlot();
 
-            InformProgressReaders();
+            LoadData(_dataPersistentService.GameData);
         }
 
-        private void InformProgressReaders()
+        private void SpawnCardsByLoadData(GameData gameData)
         {
-            foreach (ISavedProgressReader progressReaders in _gameSpawner.ProgressReaders)
+            foreach (CardData cardData in gameData.cards)
             {
-                progressReaders.LoadProgress(_persistentProgressService.playerProgress);
+                _gameSpawner.SpawnCard(cardData);
             }
         }
 

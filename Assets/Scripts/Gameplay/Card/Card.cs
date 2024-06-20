@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CCG.Gameplay.Hand;
 using CCG.Infrastructure;
 using CCG.Infrastructure.AssetProvider;
+using CCG.Services.SaveLoad;
 using CCG.StaticData.Cards;
 using CCG.StaticData.Effects;
 using UnityEngine;
@@ -10,8 +11,7 @@ using Zenject;
 
 namespace CCG.Gameplay
 {
-    [Serializable]
-    public class Card : MonoBehaviour, ICard, ICustomPool
+    public class Card : MonoBehaviour, ICard, ICustomPool, IDataSaver
     {
         private CardType cardID;
 
@@ -44,6 +44,21 @@ namespace CCG.Gameplay
         {
             RegisterComponents();
             StateMachine = new CardStateMachine(this, assetProvider);
+        }
+
+        public void LoadData(CardData cardData)
+        {
+            CardID = cardData.CardID;
+            Name = cardData.Name;
+            CardDescription = cardData.CardDescription;
+            DeckType = cardData.DeckType;
+            ValueOfCard = cardData.ValueOfCard;
+        }
+
+        public void SaveData(ref GameData gameData)
+        {
+            CardData cardData = new CardData(this.cardID, Name, CardDescription, DeckType, ValueOfCard, Effects);
+            gameData.cards.Add( cardData );
         }
 
         public void SetImage(Sprite sprite)

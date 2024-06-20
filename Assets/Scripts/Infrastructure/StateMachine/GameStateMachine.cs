@@ -17,13 +17,13 @@ namespace CCG.Infrastructure
         private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState = null;
 
-        public GameStateMachine(SceneLoader sceneLoader, PersistentProgressService persistentProgressService, SavedLoadService savedLoadService, ISpawner gameFactory, ICardStaticDataService cardStaticDataService, IAssetProvider assetProvider)
+        public GameStateMachine(SceneLoader sceneLoader, ISpawner gameFactory, ICardStaticDataService cardStaticDataService, IAssetProvider assetProvider, IDataPersistentService dataPersistentService)
         {
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, cardStaticDataService, assetProvider),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, gameFactory, persistentProgressService),
-                [typeof(LoadProgressState)] = new LoadProgressState(this,persistentProgressService, savedLoadService)
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, gameFactory,dataPersistentService),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, dataPersistentService)
             };
         }
 

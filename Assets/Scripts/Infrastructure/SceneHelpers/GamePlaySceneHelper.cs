@@ -1,7 +1,7 @@
 using CCG.Infrastructure.Factory;
+using CCG.Services.SaveLoad;
 using CCG.Services.SceneLoader;
 using CCG.StaticData.Cards;
-using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -11,17 +11,19 @@ namespace CCG.Infrastructure.SceneHelper
     {
         private ISpawner gameSpawner;
         private SceneLoader sceneLoader;
+        private IDataPersistentService dataPersistentService;
 
         [Inject]
-        public void Construct(ISpawner spawner, SceneLoader sceneLoader)
+        public void Construct(ISpawner spawner, SceneLoader sceneLoader, IDataPersistentService dataPersistentService)
         {
             gameSpawner = spawner;
             this.sceneLoader = sceneLoader;
+            this.dataPersistentService = dataPersistentService;
         }
 
         public void SpawnCard(CardType cardType)
         {
-            gameSpawner.SpawnCard(cardType);
+            gameSpawner.SpawnCardByStaticData(cardType);
             Debug.Log("SpawnedCardByHelper. CardType: " +  cardType);
         }
 
@@ -35,5 +37,19 @@ namespace CCG.Infrastructure.SceneHelper
             sceneLoader.Load(sceneName);
         }
 
+        public void SaveProgress()
+        {
+            dataPersistentService.SaveGame();
+        }
+
+        public void LoadProgress()
+        {
+            dataPersistentService.LoadGame();
+        }
+
+        public void NewProgress() 
+        { 
+            dataPersistentService.NewGame();
+        }
     }
 }

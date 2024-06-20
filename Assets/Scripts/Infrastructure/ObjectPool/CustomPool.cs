@@ -40,6 +40,14 @@ namespace CCG.Infrastructure.ObjectPool
             }
         }
 
+        public void Release()
+        {
+            foreach (var obj in _objects)
+            {
+                GameObject.Destroy(obj.gameObject);
+            }
+        }
+
         public async Task<T> Get()
         {
             var obj = _objects.FirstOrDefault(x => !x.isActiveAndEnabled);

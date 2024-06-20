@@ -8,19 +8,18 @@ namespace CCG.Infrastructure.States
     public class LoadProgressState : IState
     {
         private readonly GameStateMachine _gameStateMachine;
-        private IPersistentProgressService _persistentProgressService;
-        private readonly ISavedLoadService _savedLoadService;
+        private readonly IDataPersistentService _dataPersistentService;
 
-        public LoadProgressState(GameStateMachine gameStateMachine, PersistentProgressService persistentProgressService, SavedLoadService savedLoadService)
+        public LoadProgressState(GameStateMachine gameStateMachine, IDataPersistentService dataPersistentService)
         {
             _gameStateMachine = gameStateMachine;
-            _persistentProgressService = persistentProgressService;
-            _savedLoadService = savedLoadService;
+            _dataPersistentService = dataPersistentService;
         }
 
         public void Enter()
         {
             LoadProgressOrInitNew();
+            
             _gameStateMachine.Enter<LoadLevelState,SceneName>(SceneName.Gameplay);
         }
 
@@ -31,12 +30,7 @@ namespace CCG.Infrastructure.States
 
         private void LoadProgressOrInitNew()
         {
-            _persistentProgressService.playerProgress = _savedLoadService.LoadProgress() ?? NewProgress();
-        }
-
-        private PlayerProgress NewProgress()
-        {
-            return new PlayerProgress("Gameplay");
+            _dataPersistentService.LoadGame();
         }
     }
 }

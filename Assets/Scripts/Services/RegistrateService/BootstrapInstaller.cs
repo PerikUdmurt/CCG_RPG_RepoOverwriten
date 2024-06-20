@@ -40,10 +40,9 @@ namespace CCG.Infrastructure.Installers
         {
             BindInputService();
             Container.BindInterfacesAndSelfTo<SceneLoader>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<PersistentProgressService>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<SavedLoadService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<CardStaticDataService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AssetProvider.AssetProvider>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<DataPersistenceService>().AsSingle().NonLazy();
         }
 
         private void BindInputService()

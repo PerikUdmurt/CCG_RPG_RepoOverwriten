@@ -3,7 +3,7 @@
     public enum CardType
     {
         Health = 0,
-        Strenght = 1,
+        Strength = 1,
         Agility = 2,
         Intellect = 3,
         Charisma = 4,

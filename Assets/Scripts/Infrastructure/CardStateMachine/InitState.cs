@@ -1,12 +1,14 @@
 ﻿using CCG.Infrastructure.AssetProvider;
 using CCG.StaticData.Cards;
+using CCG.StaticData.Effects;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace CCG.Gameplay
 {
-    internal class InitState : ICardStatePayloaded<InitCardPayload>
+    internal class InitState : ICardStatePayloaded<CardData>
     {
         private ICard card;
         private readonly IAssetProvider assetProvider;
@@ -17,13 +19,13 @@ namespace CCG.Gameplay
             this.assetProvider = assetProvider;
         }
 
-        public async void Enter(InitCardPayload payload)
+        public async void Enter(CardData payload)
         {
             card.SetAvailability(false,false,false);
-            UpdateInfo(payload.CardStaticData);
+            UpdateInfo(payload);
             await SetImage(payload);
             PlayInitAnimation();
-            card.StateMachine.Enter(CardState.inStuckOfCard, card.Stack);
+            //card.StateMachine.Enter(CardState.inStuckOfCard, card.Stack);
         }
 
         public void Exit()
@@ -31,37 +33,42 @@ namespace CCG.Gameplay
             
         }
 
-        private void UpdateInfo(CardStaticData cardStaticData)
+        private void UpdateInfo(CardData cardData)
         {
-            card.CardID = cardStaticData.CardID;
-            card.Name = cardStaticData.Name;
-            card.CardDescription = cardStaticData.CardDescription;
-            card.DeckType = cardStaticData.DeckType;
-            card.ValueOfCard = cardStaticData.ValueOfCard;
+            card.LoadData(cardData);
             Debug.Log("Updated");
         }
 
-        private async Task SetImage(InitCardPayload payload)
+        private async Task SetImage(CardData cardData)
         {
-            AssetReference reference = payload.CardStaticData.CardSprite;
-            Sprite sprite = await assetProvider.Load<Sprite>(reference);
+            Sprite sprite = await assetProvider.Load<Sprite>(cardData.CardID.ToString());
             card.SetImage(sprite);
             Debug.Log("SetImage");
         }
 
         private void PlayInitAnimation()
         {
-            //Сделать анимацию доставания из колоды
+            //Сделать анимацию доставания из колоды в отдельном классе CardAnimation. Вызвать отсюда
         }
     }
 
-    public struct InitCardPayload
+    public struct CardData
     {
-        public CardStaticData CardStaticData;
+        public CardType CardID;
+        public string Name;
+        public string CardDescription;
+        public DeckType DeckType;
+        public int ValueOfCard;
+        public List<CardEffect> Effects;
 
-        public InitCardPayload(CardStaticData staticData)
+        public CardData(CardType cardID, string name, string cardDescription, DeckType deckType, int valueOfCard, List<CardEffect> effects)
         {
-            CardStaticData = staticData;
+            CardID = cardID;
+            Name = name;
+            CardDescription = cardDescription;
+            DeckType = deckType;
+            ValueOfCard = valueOfCard;
+            Effects = effects;
         }
     }
 }

@@ -12,6 +12,7 @@ namespace CCG.Gameplay
         Sprite GetImage();
         void SetImage(Sprite sprite);
         void SetAvailability(bool dragableValue, bool usableValue, bool selectableValue);
+        void LoadData(CardData cardData);
 
         GameObject gameObject { get;}
 

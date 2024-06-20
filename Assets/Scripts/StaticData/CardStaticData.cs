@@ -9,7 +9,6 @@ namespace CCG.StaticData.Cards
     public class CardStaticData: ScriptableObject
     {
         public CardType CardID;
-        public AssetReferenceSprite CardSprite;
         public string Name;
         public string CardDescription;
         public DeckType DeckType;

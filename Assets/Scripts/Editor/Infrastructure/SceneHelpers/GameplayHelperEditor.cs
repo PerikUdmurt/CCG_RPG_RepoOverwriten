@@ -21,12 +21,13 @@ public class GameplayHelperEditor : Editor
             DrawDefaultInspector();
             GameSpawner();
             SceneLoader();
+            DataPersistentService();
         }
     }
 
     private void GameSpawner()
     {
-        GUILayout.Label("GameSpawner") ;
+        GUILayout.Label("GameSpawner", EditorStyles.boldLabel) ;
         cardType = (CardType)EditorGUILayout.EnumPopup("CardType", cardType);
         if (GUILayout.Button("SpawnCard"))
         {
@@ -41,12 +42,30 @@ public class GameplayHelperEditor : Editor
 
     private void SceneLoader()
     {
-        GUILayout.Label("SceneLoader");
+        GUILayout.Label("SceneLoader", EditorStyles.boldLabel);
         sceneName = (SceneName)EditorGUILayout.EnumPopup("Scene", sceneName);
         if (GUILayout.Button("LoadScene"))
         {
             myTarget.LoadScene(sceneName);
         }
+    }
+
+    private void DataPersistentService()
+    {
+        GUILayout.Label("DataPersistentService", EditorStyles.boldLabel);
+        if (GUILayout.Button("NewProgress"))
+        {
+            myTarget.NewProgress();
+        }
+        if (GUILayout.Button("SaveProgress"))
+        {
+            myTarget.SaveProgress();
+        }
+        if (GUILayout.Button("LoadProgress"))
+        {
+            myTarget.LoadProgress();
+        }
+
     }
 
     private void HelpBox()

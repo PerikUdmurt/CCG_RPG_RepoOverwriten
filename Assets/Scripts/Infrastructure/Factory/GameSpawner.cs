@@ -9,21 +9,22 @@ using System.Threading.Tasks;
 using CCG.Gameplay;
 using CCG.StaticData.Cards;
 using CCG.Infrastructure.ObjectPool;
+using CCG.Data;
+using CCG.Services.SaveLoad;
 
 namespace CCG.Infrastructure.Factory
 {
     public class GameSpawner : ISpawner
     {
-        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+        public List<IDataSaver> DataSavers { get; } = new List<IDataSaver>();
 
         private readonly ICardStaticDataService _cardStaticDataService;
         private readonly IAssetProvider _assetProvider;
         private readonly CustomFactory<Card> _cardFactory;
         private readonly CustomFactory<CardSlot> _cardslotFactory;
 
-        private CustomPool<Card> _cardPool;
-        private CustomPool<CardSlot> _cardSlotPool;
+        private CustomPool<Card> _cardPool = null;
+        private CustomPool<CardSlot> _cardSlotPool = null;
 
         public GameSpawner(ICardStaticDataService moduleStaticDataService, IAssetProvider assetProvider, CustomFactory<Card> customFactory, CustomFactory<CardSlot> cardslotFactory)
         {
@@ -35,8 +36,8 @@ namespace CCG.Infrastructure.Factory
 
         public void CleanUp()
         {
-            ProgressReaders.Clear();
-            ProgressWriters.Clear();
+            DataSavers.Clear();
+            ReleaseObjectPools();
 
             _assetProvider.CleanUp();
         }
@@ -48,17 +49,24 @@ namespace CCG.Infrastructure.Factory
             return handController;
         }
 
-        public async Task<Card> SpawnCard(CardType cardType)
+        public async Task<Card> SpawnCardByStaticData(CardType cardType)
+        {
+            CardStaticData staticData = _cardStaticDataService.GetStaticData(cardType);
+            CardData data = staticData.ToCardData();
+            return await SpawnCard(data);
+        }
+
+        public async Task<Card> SpawnCard(CardData cardData)
         {
             Card card = await _cardPool.Get();
-            CardStaticData data = _cardStaticDataService.GetStaticData(cardType);
-            InitCardPayload initCardPayload = new InitCardPayload(data);
-            card.StateMachine.Enter(CardState.Init, initCardPayload);
+            card.StateMachine.Enter(CardState.Init, cardData);
+            RegisterDataSavers(card.gameObject);
             return card;
         }
 
         public void DespawnCard(Card card)
         {
+            UnregisterDataSavers(card.gameObject);
             _cardPool.Release(card);
         }
 
@@ -80,28 +88,38 @@ namespace CCG.Infrastructure.Factory
             await _cardSlotPool.Fill(3);
         }
 
-        private void Register(ISavedProgressReader progressReader)
+        public void ReleaseObjectPools()
         {
-            if (progressReader is ISavedProgress progress)
-            ProgressWriters.Add(progressReader);
-
-            ProgressReaders.Add(progressReader);
+            _cardPool?.Release();
+            _cardSlotPool?.Release();
         }
 
-        private void RegisterProgress(GameObject createdObject, Vector3 atPosition)
+        private void Register(IDataSaver dataSaver)
         {
-            foreach (ISavedProgressReader progressReader in createdObject.GetComponentsInChildren<ISavedProgressReader>())
+            DataSavers.Add(dataSaver);
+        }
+
+        private void Unregister(IDataSaver dataSaver)
+        {
+            if (DataSavers.Contains(dataSaver))
+            {
+                DataSavers.Remove(dataSaver);
+            }
+        }
+
+        private void RegisterDataSavers(GameObject createdObject)
+        {
+            foreach (IDataSaver progressReader in createdObject.GetComponentsInChildren<IDataSaver>())
             {
                 Register(progressReader);
             }
-
         }
 
-        private void RegisterProgress(GameObject createdObject)
+        private void UnregisterDataSavers(GameObject gameObject)
         {
-            foreach (ISavedProgressReader progressReader in createdObject.GetComponentsInChildren<ISavedProgressReader>())
+            foreach (IDataSaver progressReader in gameObject.GetComponentsInChildren<IDataSaver>())
             {
-                Register(progressReader);
+                Unregister(progressReader);
             }
         }
     }

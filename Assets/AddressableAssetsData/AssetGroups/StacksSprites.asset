@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: StacksSprites
+  m_EditorClassIdentifier: 
+  m_GroupName: StacksSprites
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 86eca7e2c63eb1a4e85ec804ce9db86a
+  m_SerializeEntries:
+  - m_GUID: 95c3e56aa9832514fb5dc043b68ea6ef
+    m_Address: HealthStack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StacksSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8efe60c9261629942be50611d8e1cfb2
+    m_Address: StrenghtStack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StacksSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b69b6f7b7fbd5284babaf83d940d1ffb
+    m_Address: AgilityStack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StacksSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bbe14ec459641a943b27f705d5174fc1
+    m_Address: IntellectStack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StacksSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c7d9c143fcca6644b73eb33eb82fa64
+    m_Address: CharismaStack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StacksSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b756451bc58fc04990fa5532339dae7
+    m_Address: ItemStack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StacksSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f7c7c90834e4d064cbd616c609af5d84
+    m_Address: SpecialStack
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - StacksSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 931a871da34c22c4eb0ab72492a630b9, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 34424827fbef6284c80d441978df494a, type: 2}
+    - {fileID: 11400000, guid: 97dc2132cd4332c41a12c18144714325, type: 2}

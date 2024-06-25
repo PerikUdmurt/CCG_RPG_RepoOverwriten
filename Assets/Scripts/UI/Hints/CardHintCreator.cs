@@ -32,15 +32,15 @@ namespace CCG.UI.Hints
             _card.Selectable.Deselected -= HideHint;
         }
 
-        private void ShowHint()
+        private async void ShowHint()
         {
-            _hintManager.CreateHint(_card.Name, _card.CardDescription, Color.blue);
+            await _hintManager.CreateHint(_card.Name, _card.CardDescription, Color.blue);
             if (_card.Effects.Count > 0)
             {
                 foreach (var effect in _card.Effects)
                 {
                     if (effect != null)
-                        _hintManager.CreateHint(effect.effectName, effect.description, Color.green);
+                        await _hintManager.CreateHint(effect.effectName, effect.description, Color.green);
                 }
             }
         }

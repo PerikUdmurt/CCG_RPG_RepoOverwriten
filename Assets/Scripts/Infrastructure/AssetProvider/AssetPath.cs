@@ -6,6 +6,9 @@
         public const string Hand = "HandController";
         public const string CardSlot = "CardSlot";
         public const string Hint = "Hint";
+        public const string HUD = "HUD";
+        public const string Stack = "StackOfCard";
+
         public const string AllCardStaticData = "StaticData/Cards";
     }
 }

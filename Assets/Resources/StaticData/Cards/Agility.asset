@@ -13,12 +13,6 @@ MonoBehaviour:
   m_Name: Agility
   m_EditorClassIdentifier: 
   CardID: 2
-  CardSprite:
-    m_AssetGUID: f165804996f084644bbe5494ac23620e
-    m_SubObjectName: Agility
-    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    m_EditorAssetChanged: 1
   Name: Agility
   CardDescription: Agility
   DeckType: 2

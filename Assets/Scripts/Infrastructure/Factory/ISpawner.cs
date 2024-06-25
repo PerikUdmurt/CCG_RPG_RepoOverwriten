@@ -4,6 +4,7 @@ using CCG.Services.SaveLoad;
 using CCG.StaticData.Cards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace CCG.Infrastructure.Factory
 {
@@ -19,5 +20,6 @@ namespace CCG.Infrastructure.Factory
         Task<HandController> SpawnHand();
         void ReleaseObjectPools();
         Task<Card> SpawnCard(CardData cardData);
+        Task<HUD> SpawnHUD();
     }
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: f7702247510718741a385483b02ae547
   m_currentHash:
     serializedVersion: 2
-    Hash: 8bdd57f0ce8ac299773b38ca346d918c
+    Hash: ec59d6b31dce84da574c2bec94139733
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 369eed241ad36fe4f8825fea677336d0, type: 2}
   - {fileID: 11400000, guid: f235a2618817bc04f9bf575677088f76, type: 2}
   - {fileID: 11400000, guid: ddcd8f8d49c45aa4db9c99fc424131bf, type: 2}
+  - {fileID: 11400000, guid: 0b499245ddcb83c41aa88a5b69a6369f, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -90,6 +91,7 @@ MonoBehaviour:
     - default
     - CardSprite
     - UI
+    - StacksSprites
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 361c7f5f281499c4699d06398d3fe4c6, type: 2}

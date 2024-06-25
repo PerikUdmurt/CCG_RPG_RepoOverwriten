@@ -38,6 +38,16 @@ MonoBehaviour:
     m_SerializedLabels:
     - UI
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 42509dbb77abfd64ab56fec49ae1b198
+    m_Address: HUD
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0f6898026795b3d42abc29ddbd4d750e
+    m_Address: StackOfCard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 931a871da34c22c4eb0ab72492a630b9, type: 2}
   m_SchemaSet:

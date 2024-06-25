@@ -9,7 +9,7 @@ namespace CCG.Gameplay.Hand
         public event Action Dropped;
 
         [SerializeField] private float dragLerpValue;
-        public bool isDragable { get; set; }
+        public bool isDragable { get; set; } = true;
 
         public void Drag(Vector3 targetPosition)
         {
@@ -23,9 +23,9 @@ namespace CCG.Gameplay.Hand
 
         public void Take()
         {
+            Taken?.Invoke();
             gameObject.TryGetComponent<Card>(out Card card);
             card.StateMachine.Enter(CardState.isDragging);
-            Taken?.Invoke();
         }
     }
 }

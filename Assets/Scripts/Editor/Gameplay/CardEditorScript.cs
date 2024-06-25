@@ -8,14 +8,26 @@ public class CardEditorScript : Editor
     {
         DrawDefaultInspector();
         Card myTarget = (Card)target;
-        EditorGUILayout.LabelField("CardID", myTarget.CardID.ToString());
-        EditorGUILayout.LabelField("Name", myTarget.Name);
-        EditorGUILayout.LabelField("Description", myTarget.CardDescription);
-        EditorGUILayout.LabelField("DeckType", myTarget.DeckType.ToString());
-        EditorGUILayout.LabelField("Value", myTarget.ValueOfCard.ToString());
-        EditorGUILayout.LabelField("CurrentState", myTarget.StateMachine.CurrentState.ToString());
-        EditorGUILayout.LabelField("Usable", myTarget.Usable.isUsable.ToString());
-        EditorGUILayout.LabelField("Selectable", myTarget.Selectable.isSelectable.ToString());
-        EditorGUILayout.LabelField("Dragable", myTarget.Dragable.isDragable.ToString());
+        ShowCardInfo(myTarget);
+        ShowCardAvailAbility(myTarget);
+    }
+
+    private void ShowCardInfo(Card target)
+    {
+        EditorGUILayout.LabelField("CardInfo", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("CardID", target.CardID.ToString());
+        EditorGUILayout.LabelField("Name", target.Name);
+        EditorGUILayout.LabelField("Description", target.CardDescription);
+        EditorGUILayout.LabelField("DeckType", target.DeckType.ToString());
+        EditorGUILayout.LabelField("Value", target.ValueOfCard.ToString());
+        EditorGUILayout.LabelField("CurrentState", target.StateMachine?.CurrentState.ToString());
+    }
+
+    private void ShowCardAvailAbility(Card target)
+    {
+        EditorGUILayout.LabelField("CardInfo", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Usable", target.Usable.isUsable.ToString());
+        EditorGUILayout.LabelField("Selectable", target.Selectable.isSelectable.ToString());
+        EditorGUILayout.LabelField("Dragable", target.Dragable.isDragable.ToString());
     }
 }

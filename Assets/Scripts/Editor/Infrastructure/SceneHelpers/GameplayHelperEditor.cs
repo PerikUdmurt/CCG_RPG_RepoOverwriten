@@ -14,18 +14,18 @@ public class GameplayHelperEditor : Editor
     {
         
         myTarget = (GamePlaySceneHelper)target;
-        HelpBox();
+        ShowHelpBox();
         using (new EditorGUI.DisabledGroupScope(!Application.isPlaying))
         {
             DrawDefaultInspector();
-            GameSpawner();
+            ShowGameSpawner();
             EditorGUILayout.Separator();
-            SceneLoader();
+            ShowSceneLoader();
             EditorGUILayout.Separator();
-            DataPersistentService();
+            ShowDataPersistentService();
         }
     }
-    private void GameSpawner()
+    private void ShowGameSpawner()
     {
         GUILayout.Label("GameSpawner", EditorStyles.boldLabel) ;
         cardType = (CardType)EditorGUILayout.EnumPopup("CardType", cardType);
@@ -40,7 +40,7 @@ public class GameplayHelperEditor : Editor
         }
     }
     
-    private void SceneLoader()
+    private void ShowSceneLoader()
     {
         GUILayout.Label("SceneLoader", EditorStyles.boldLabel);
         sceneName = (SceneName)EditorGUILayout.EnumPopup("Scene", sceneName);
@@ -49,8 +49,7 @@ public class GameplayHelperEditor : Editor
             myTarget.LoadScene(sceneName);
         }
     }
-    [Separator]
-    private void DataPersistentService()
+    private void ShowDataPersistentService()
     {
         GUILayout.Label("DataPersistentService", EditorStyles.boldLabel);
         if (GUILayout.Button("NewProgress"))
@@ -68,7 +67,7 @@ public class GameplayHelperEditor : Editor
 
     }
 
-    private void HelpBox()
+    private void ShowHelpBox()
     {
         if (!Application.isPlaying)
         {

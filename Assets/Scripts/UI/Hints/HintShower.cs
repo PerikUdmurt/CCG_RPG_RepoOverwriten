@@ -13,6 +13,11 @@ namespace CCG.UI.Hints
         [SerializeField] private string _hintText;
         [SerializeField] private Color _hintColor;
 
+        public ISelectable Selectable
+        {
+            get => _selectableObj ?? (_selectableObj = GetComponent<ISelectable>());
+        }
+
         [Inject]
         public void Construct(IHintService hintManager)
         {
@@ -26,8 +31,8 @@ namespace CCG.UI.Hints
 
         private void OnEnable()
         {
-            _selectableObj.Selected += ShowHint;
-            _selectableObj.Deselected += HideHint;
+            Selectable.Selected += ShowHint;
+            Selectable.Deselected += HideHint;
         }
 
         private void OnDisable()

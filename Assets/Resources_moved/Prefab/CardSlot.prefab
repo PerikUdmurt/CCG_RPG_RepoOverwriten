@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1118321133910920561}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CardHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7493991634687546195}
   - component: {fileID: 5434328426143399128}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Preview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,10 @@ GameObject:
   - component: {fileID: 7397352404058001081}
   - component: {fileID: 5336657235891184503}
   - component: {fileID: 1306624069316488400}
-  m_Layer: 0
+  - component: {fileID: 6592351772499202176}
+  - component: {fileID: 168736638790376837}
+  - component: {fileID: 139212978978496932}
+  m_Layer: 3
   m_Name: CardSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,3 +202,42 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.48, y: 0.64, z: 0.02}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6592351772499202176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825107925686323421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e86761cf8924cc7409871d60b686096c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &168736638790376837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825107925686323421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32090e2736cc97146bab65f4028e01f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &139212978978496932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5825107925686323421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7a58392bc17561449deb1c570459e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: "\u0421\u043B\u043E\u0442"
+  _hintText: "\u0422\u0435\u043A\u0441\u0442 \u0422\u0435\u043A\u0441\u0442 \u0422\u0435\u043A\u0441\u0442"
+  _hintColor: {r: 0, g: 0, b: 0, a: 0}

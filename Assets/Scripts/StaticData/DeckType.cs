@@ -7,6 +7,7 @@
         Agility = 2,
         Intellect = 3,
         Charisma = 4,
-        Item = 5
+        Item = 5,
+        Special = 6
     }
 }

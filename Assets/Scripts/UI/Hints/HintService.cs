@@ -2,6 +2,7 @@ using CCG.Infrastructure.AssetProvider;
 using CCG.Infrastructure.Factory;
 using CCG.Infrastructure.ObjectPool;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace CCG.UI.Hints
@@ -14,16 +15,20 @@ namespace CCG.UI.Hints
 
         private RectTransform _currentHintsEntryPoint;
 
-        public HintService(RectTransform hintsEntryPos, CustomFactory<HintUI> hintFactory) 
+        public HintService(CustomFactory<HintUI> hintFactory) 
         { 
-            _hintEntryPos = hintsEntryPos;
             _currentHintsEntryPoint = _hintEntryPos;
             _hintPool = new CustomPool<HintUI>(hintFactory, AssetPath.Hint);
         }
 
-        public void CreateHint(string name, string hintText, Color color) 
+        public async Task CreateObjectPool()
         {
-            HintUI currentHint = _hintPool.Get().Result;
+            await _hintPool.Fill(3);
+        }
+
+        public async Task CreateHint(string name, string hintText, Color color) 
+        {
+            HintUI currentHint = await _hintPool.Get();
             
             currentHint.transform.SetParent(_currentHintsEntryPoint.transform, false);
             _currentHintsEntryPoint = currentHint.rectTransform;
@@ -42,6 +47,11 @@ namespace CCG.UI.Hints
             }
             _hintList.Clear();
             _currentHintsEntryPoint = _hintEntryPos;
+        }
+
+        public void SetHintEntryPos(RectTransform hintEntryPos)
+        {
+            _hintEntryPos = hintEntryPos;
         }
     }
 }

@@ -6,7 +6,7 @@ using Zenject;
 
 namespace CCG.Infrastructure.Factory
 {
-    public class CustomFactory<T>: PlaceholderFactory<T> where T : MonoBehaviour, ICustomPool
+    public class CustomFactory<T>: PlaceholderFactory<T> where T : MonoBehaviour
     {
         private DiContainer _container;
         private IAssetProvider _assetProvider;

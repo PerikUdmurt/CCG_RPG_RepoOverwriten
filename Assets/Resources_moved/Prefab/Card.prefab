@@ -17,6 +17,9 @@ GameObject:
   - component: {fileID: 5844409292554476230}
   - component: {fileID: 5500986299015485141}
   - component: {fileID: 7664108665206824493}
+  - component: {fileID: 1492754140327964109}
+  - component: {fileID: 8489022633881850754}
+  - component: {fileID: 2160950521461516916}
   m_Layer: 3
   m_Name: Card
   m_TagString: Untagged
@@ -59,7 +62,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c5aa3fdcc6b267a49b2631af02ada966, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -186,5 +189,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 968b34de15680554bb07836fecc52d36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1492754140327964109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653143088271257273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485c5396de163d5448ae8c17fdde51aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8489022633881850754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653143088271257273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6f738655b01f6547b6a6e2305321d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2160950521461516916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653143088271257273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a905d7f5515817f488f92cb6e2f12a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

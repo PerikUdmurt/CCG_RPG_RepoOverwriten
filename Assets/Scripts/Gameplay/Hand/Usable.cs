@@ -5,7 +5,7 @@ namespace CCG.Gameplay.Hand
 {
     public class Usable : MonoBehaviour, IUsable
     {
-        public bool isUsable { get; set; }
+        public bool isUsable { get; set; } = true;
 
         public event Action Used;
 

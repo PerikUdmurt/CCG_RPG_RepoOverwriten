@@ -1,10 +1,10 @@
-using System;
 using System.Collections.Generic;
 using CCG.Data;
 using CCG.Gameplay.Hand;
 using CCG.Infrastructure;
 using CCG.Infrastructure.AssetProvider;
 using CCG.Services.SaveLoad;
+using CCG.Services.Stack;
 using CCG.StaticData.Cards;
 using CCG.StaticData.Effects;
 using UnityEngine;
@@ -12,54 +12,63 @@ using Zenject;
 
 namespace CCG.Gameplay
 {
+    [RequireComponent(typeof(Usable))]
+    [RequireComponent(typeof(Selectable))]
+    [RequireComponent(typeof(Dragable))]
+    [RequireComponent(typeof(Movable))]
+    [RequireComponent(typeof(SpriteRenderer))]
     public class Card : MonoBehaviour, ICard, ICustomPool, IDataSaver
     {
-        private CardType cardID;
-
-        public CardType CardID
-        {
-            get { return cardID; }
-            set { cardID = value; }
-        }
+        private CardType _cardID;
+        private string _cardName;
+        private string _description;
+        private DeckType _deckType;
+        [SerializeField] private StackOfCard _stackOfCard;
+        private int _valueOfCard;
+        private List<CardEffect> _effects = new List<CardEffect>();
+        private IDragable _dragable;
+        private ISelectable _selectable;
+        private IMovable _movable;
+        private IUsable _usable;
+        private SpriteRenderer _spriteRenderer;
 
         public CardStateMachine StateMachine { get; private set; }
         [HideInInspector] public bool inCardSlot;
         [SerializeField] private float _moveSpeed;
 
-        private SpriteRenderer _spriteRenderer;
-
-        public string Name { get; set; }
-        public string CardDescription { get; set; }
-        public DeckType DeckType { get; set; }
-        public StackOfCard Stack { get; set; }
-        public int ValueOfCard { get; set; }
-        public List<CardEffect> Effects { get; set; }
-        public IDragable Dragable { get; set; }
-        public ISelectable Selectable { get; set; }
-        public IUsable Usable { get; set; }
-        public IMovable Movable { get; set; }
+        public CardType CardID { get => _cardID;}
+        public string Name { get => _cardName; }
+        public string CardDescription { get => _description; }
+        public DeckType DeckType { get => _deckType;}
+        public StackOfCard Stack { get => _stackOfCard; }
+        public int ValueOfCard { get => _valueOfCard; }
+        public List<CardEffect> Effects { get => _effects; }
+        public IDragable Dragable   { get => _dragable ?? GetComponent<IDragable>();}
+        public ISelectable Selectable { get => _selectable ?? GetComponent<ISelectable>(); }
+        public IUsable Usable { get => _usable ?? GetComponent<IUsable>(); }
+        public IMovable Movable { get => _movable ?? GetComponent<IMovable>(); }
+        public SpriteRenderer SpriteRenderer { get => _spriteRenderer ?? GetComponent<SpriteRenderer>(); }
         GameObject ICard.gameObject => gameObject;
 
         [Inject]
-        public void Construct(IAssetProvider assetProvider)
+        public void Construct(IAssetProvider assetProvider, IStackService stackService)
         {
             RegisterComponents();
-            StateMachine = new CardStateMachine(this, assetProvider);
+            StateMachine = new CardStateMachine(this, assetProvider, stackService);
         }
 
-        public void LoadData(CardData cardData)
+        public void UpdateData(CardData cardData)
         {
-            CardID = cardData.CardID;
-            Name = cardData.Name;
-            CardDescription = cardData.CardDescription;
-            DeckType = cardData.DeckType;
-            ValueOfCard = cardData.ValueOfCard;
+            _cardID = cardData.CardID;
+            _cardName = cardData.Name;
+            _description = cardData.CardDescription;
+            _deckType = cardData.DeckType;
+            _valueOfCard = cardData.ValueOfCard;
         }
 
         public void SaveData(ref GameData gameData)
         {
-            Debug.Log("Сохранена карта");
-            CardData cardData = new CardData(this.cardID, Name, CardDescription, DeckType, ValueOfCard, Effects);
+            CardData cardData = new CardData(this._cardID, Name, CardDescription, DeckType, ValueOfCard, Effects);
             gameData.cards.Add( cardData );
         }
 
@@ -68,9 +77,19 @@ namespace CCG.Gameplay
             _spriteRenderer.sprite = sprite;
         }
 
+        public void SetStack(StackOfCard stack)
+        {
+            _stackOfCard = stack;
+        }
+
         public Sprite GetImage()
         {
             return _spriteRenderer.sprite;
+        }
+
+        public void SetAvailability(bool value)
+        {
+            SetAvailability(value, value, value);
         }
 
         public void SetAvailability(bool dragableValue, bool usableValue, bool selectableValue)
@@ -99,10 +118,10 @@ namespace CCG.Gameplay
 
         private void RegisterComponents()
         {
-            Usable = GetComponent<IUsable>();
-            Selectable = GetComponent<ISelectable>();
-            Dragable = GetComponent<IDragable>();
-            Movable = GetComponent<IMovable>();
+            _usable = GetComponent<IUsable>();
+            _selectable = GetComponent<ISelectable>();
+            _dragable = GetComponent<IDragable>();
+            _movable = GetComponent<IMovable>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
     }

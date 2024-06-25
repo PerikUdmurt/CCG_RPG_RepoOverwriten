@@ -53,6 +53,14 @@ namespace CCG.Infrastructure.Factory
             return await SpawnCard(data);
         }
 
+        public async Task<HUD> SpawnHUD()
+        {
+            GameObject resource = await _assetProvider.Load<GameObject>(AssetPath.HUD);
+            GameObject gameObj = GameObject.Instantiate(resource);
+            gameObj.TryGetComponent<HUD>(out HUD hud);
+            return hud;
+        }
+
         public async Task<Card> SpawnCard(CardData cardData)
         {
             Card card = await _cardPool.Get();

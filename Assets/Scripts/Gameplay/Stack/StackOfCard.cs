@@ -1,30 +1,23 @@
+using CCG.Infrastructure;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using CCG.Gameplay.Hand;
 
 namespace CCG.Gameplay
 {
-    public class StackOfCard : MonoBehaviour, ISelectable, IUsable, IStackOfCard
+    public class StackOfCard : MonoBehaviour, IStackOfCard
     {
-        public event Action Used;
-        public event Action Selected;
-        public event Action Deselected;
-
+        private Dictionary<ICard, int> _activeCards = new Dictionary<ICard, int>();
+        
         [SerializeField] private Transform _cardTransform;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
 
         public bool isUsable { get; set; } = true;
         public bool isSelectable { get; set; } = true;
 
+
         public Transform CardTransform => _cardTransform;
-
-        private Dictionary<ICard, int> _activeCards = new Dictionary<ICard, int>();
-
-        public void Use()
-        {
-            ShowCard();
-            Used?.Invoke();
-        }
+        public SpriteRenderer SpriteRenderer { get => _spriteRenderer ?? (_spriteRenderer = GetComponent<SpriteRenderer>()); }
 
         public void AddToStack(ICard card)
         {
@@ -36,6 +29,11 @@ namespace CCG.Gameplay
         {  
             _activeCards.Remove(card);
             Sort();
+        }
+
+        public void SetImage(Sprite sprite)
+        {
+            SpriteRenderer.sprite = sprite;
         }
 
         private void Sort()
@@ -58,22 +56,5 @@ namespace CCG.Gameplay
                 card.SetAvailability(false, false, false);
             }
         }
-
-        public void Select()
-        {
-            Selected?.Invoke();
-        }
-
-        public void Deselect()
-        {
-            Deselected?.Invoke();
-        }
-    }
-
-    public interface IStackOfCard
-    {
-        Transform CardTransform { get; }
-        void AddToStack(ICard card);
-        void RemoveFromStack(ICard card);
     }
 }

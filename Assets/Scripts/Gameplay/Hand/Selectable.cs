@@ -5,7 +5,7 @@ namespace CCG.Gameplay.Hand
 {
     public class Selectable : MonoBehaviour, ISelectable
     {
-        public bool isSelectable { get; set; }
+        public bool isSelectable { get; set; } = true;
 
         public event Action Selected;
         public event Action Deselected;

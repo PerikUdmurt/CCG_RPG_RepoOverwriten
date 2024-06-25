@@ -5,6 +5,8 @@ using CCG.Infrastructure.Factory;
 using CCG.Services;
 using CCG.Services.SaveLoad;
 using CCG.Services.SceneLoader;
+using CCG.Services.Stack;
+using CCG.UI.Hints;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -21,7 +23,6 @@ using Zenject;
 
             BindFactories();
             BindSpawner();
-        Debug.Log("aaaaaa");
         }
 
         private void BindBootstraper()
@@ -41,7 +42,9 @@ using Zenject;
             Container.BindInterfacesAndSelfTo<CardStaticDataService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<AssetProvider>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<DataPersistenceService>().AsSingle().NonLazy();
-        }
+            Container.BindInterfacesAndSelfTo<HintService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<StackService>().AsSingle().NonLazy();
+    }
 
         private void BindSpawner()
         {
@@ -52,5 +55,7 @@ using Zenject;
         {
             Container.BindFactory<Card, CustomFactory<Card>>().FromFactory<CustomFactory<Card>>().NonLazy();
             Container.BindFactory<CardSlot, CustomFactory<CardSlot>>().FromFactory<CustomFactory<CardSlot>>().NonLazy();
-        }
+            Container.BindFactory<HintUI, CustomFactory<HintUI>>().FromFactory<CustomFactory<HintUI>>().NonLazy();
+            Container.BindFactory<StackOfCard, CustomFactory<StackOfCard>>().FromFactory<CustomFactory<StackOfCard>>().NonLazy();
+    }
     }

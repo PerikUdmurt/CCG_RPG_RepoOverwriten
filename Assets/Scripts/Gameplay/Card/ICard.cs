@@ -13,21 +13,21 @@ namespace CCG.Gameplay
         Sprite GetImage();
         void SetImage(Sprite sprite);
         void SetAvailability(bool dragableValue, bool usableValue, bool selectableValue);
-        void LoadData(CardData cardData);
+        void UpdateData(CardData cardData);
+        void SetStack(StackOfCard stack);
+        void SetAvailability(bool value);
 
         GameObject gameObject { get;}
-
-        IDragable Dragable {  get; set; }
-        ISelectable Selectable { get; set; }
-        IUsable Usable { get; set; }
-        
-        IMovable Movable { get; set; }
-        CardType CardID { get; set; }
-        string Name { get; set; }
-        string CardDescription { get; set; }
-        DeckType DeckType { get; set; }
-        int ValueOfCard { get; set; }
-        List<CardEffect> Effects { get; set; }
-        StackOfCard Stack { get; set; }
+        CardType CardID { get; }
+        string Name { get; }
+        string CardDescription { get; }
+        DeckType DeckType { get; }
+        StackOfCard Stack { get; }
+        int ValueOfCard { get; }
+        List<CardEffect> Effects { get; }
+        IDragable Dragable { get; }
+        ISelectable Selectable { get; }
+        IUsable Usable { get; }
+        IMovable Movable { get; }
     }
 }

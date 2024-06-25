@@ -17,6 +17,11 @@ namespace CCG.Gameplay
         private void Awake()
         {
             _card = GetComponent<ICard>();
+            
+        }
+
+        private void OnEnable()
+        {
             _card.Dragable.Dropped += CheckCardSlot;
             SlotChanged += SwitchPrevew;
         }
@@ -24,6 +29,7 @@ namespace CCG.Gameplay
         private void OnDisable()
         {
             _card.Dragable.Dropped -= CheckCardSlot;
+            SlotChanged -= SwitchPrevew;
         }
 
         private void Update()

@@ -38,7 +38,7 @@ namespace CCG.Infrastructure.States
         }
         public void LoadData(GameData gameData)
         {
-            SpawnCardsByLoadData(gameData);
+            SpawnCardsByLoadData(gameData, new Vector3());
         }
 
         private async void OnLoaded()
@@ -52,11 +52,11 @@ namespace CCG.Infrastructure.States
             LoadData(_dataPersistentService.GameData);
         }
 
-        private void SpawnCardsByLoadData(GameData gameData)
+        private void SpawnCardsByLoadData(GameData gameData, Vector3 atPosition)
         {
             foreach (CardData cardData in gameData.cards)
             {
-                _gameSpawner.SpawnCard(cardData);
+                _gameSpawner.SpawnCard(cardData, atPosition);
             }
         }
 

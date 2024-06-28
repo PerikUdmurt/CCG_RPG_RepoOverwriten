@@ -9,18 +9,19 @@ namespace CCG.Gameplay
 {
     public class CardSlot : MonoBehaviour, ICardSlot, ICustomPool
     {
-        public event Action Changed;
-
         private ICard _currentCard;
         
         [SerializeField] private CardSlotPreview _preview;
+
+        public event Action<ICardSlot,ICard> Filled;
+        public event Action<ICardSlot> Unfilled;
+
         public ICard CurrentCard
         {
             get { return _currentCard; }
             set
             {
                 _currentCard = value;
-                Changed?.Invoke();
             }
         }
 
@@ -38,6 +39,7 @@ namespace CCG.Gameplay
             card.Movable.MoveTo(this.transform.position);
             CurrentCard = card;
             CurrentCard.StateMachine.Enter(CardState.inCardSlot);
+            Filled?.Invoke(this,card);
             card.Dragable.Taken += LoseCard;
         }
 
@@ -47,6 +49,7 @@ namespace CCG.Gameplay
             {
                 CurrentCard.Dragable.Taken -= LoseCard;
                 CurrentCard = null;
+                Unfilled?.Invoke(this);
             }
         }
 
@@ -73,18 +76,5 @@ namespace CCG.Gameplay
         {
             gameObject.SetActive(false);
         }
-    }
-
-    public interface ICardSlot
-    {
-        CardSlotPreview Preview { get; }
-        Transform Transform { get; }
-        ICard CurrentCard { get; set; }
-
-        event Action Changed;
-
-        void LoseCard();
-        void SwapCard(ICard newCard);
-        void TakeCard(ICard card);
     }
 }

@@ -28,7 +28,8 @@ namespace CCG.Services.Stack
             GameObject gameObj = GameObject.Instantiate(resource, _stackEntryPos + new Vector3(0.65f*_stacks.Count,0f,0f), Quaternion.identity);
             gameObj.TryGetComponent<StackOfCard>(out StackOfCard stack);
             stack.SetImage(await _assetProvider.Load<Sprite>($"{deckType}Stack"));
-            Debug.Log(_stacks.TryAdd(deckType, stack));
+            Debug.Log(_stacks.Count);
+            _stacks.TryAdd(deckType, stack);
             return stack;
         }
 

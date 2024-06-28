@@ -14,12 +14,12 @@ namespace CCG.Infrastructure.Factory
         void CleanUp();
         Task CreateObjectPools();
         void DespawnCard(Card card);
-        Task<Card> SpawnCardByStaticData(CardType cardType);
         void DespawnCardSlot(CardSlot slot);
         Task<CardSlot> SpawnCardSlot();
         Task<HandController> SpawnHand();
         void ReleaseObjectPools();
-        Task<Card> SpawnCard(CardData cardData);
         Task<HUD> SpawnHUD();
+        Task<Card> SpawnCardByStaticData(CardType cardType, Vector3 atPosition);
+        Task<Card> SpawnCard(CardData cardData, Vector3 atPosition);
     }
 }

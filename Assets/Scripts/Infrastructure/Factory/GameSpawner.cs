@@ -13,8 +13,6 @@ namespace CCG.Infrastructure.Factory
 {
     public class GameSpawner : ISpawner
     {
-        public List<IDataSaver> DataSavers { get; } = new List<IDataSaver>();
-
         private readonly ICardStaticDataService _cardStaticDataService;
         private readonly IAssetProvider _assetProvider;
         private readonly CustomFactory<Card> _cardFactory;
@@ -22,6 +20,7 @@ namespace CCG.Infrastructure.Factory
 
         private CustomPool<Card> _cardPool = null;
         private CustomPool<CardSlot> _cardSlotPool = null;
+        public List<IDataSaver> DataSavers { get; } = new List<IDataSaver>();
 
         public GameSpawner(ICardStaticDataService moduleStaticDataService, IAssetProvider assetProvider, CustomFactory<Card> customFactory, CustomFactory<CardSlot> cardslotFactory)
         {
@@ -46,11 +45,11 @@ namespace CCG.Infrastructure.Factory
             return handController;
         }
 
-        public async Task<Card> SpawnCardByStaticData(CardType cardType)
+        public async Task<Card> SpawnCardByStaticData(CardType cardType, Vector3 atPosition)
         {
             CardStaticData staticData = _cardStaticDataService.GetStaticData(cardType);
             CardData data = staticData.ToCardData();
-            return await SpawnCard(data);
+            return await SpawnCard(data, atPosition);
         }
 
         public async Task<HUD> SpawnHUD()
@@ -61,9 +60,10 @@ namespace CCG.Infrastructure.Factory
             return hud;
         }
 
-        public async Task<Card> SpawnCard(CardData cardData)
+        public async Task<Card> SpawnCard(CardData cardData, Vector3 atPosition)
         {
             Card card = await _cardPool.Get();
+            card.transform.position = atPosition;
             card.StateMachine.Enter(CardState.Init, cardData);
             Register(card);
             return card;

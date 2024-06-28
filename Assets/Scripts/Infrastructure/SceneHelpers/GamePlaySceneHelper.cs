@@ -26,7 +26,7 @@ namespace CCG.Infrastructure.SceneHelper
 
         public void SpawnCard(CardType cardType)
         {
-            gameSpawner.SpawnCardByStaticData(cardType);
+            gameSpawner.SpawnCardByStaticData(cardType, new Vector3());
             Debug.Log("SpawnedCardByHelper. CardType: " +  cardType);
         }
 

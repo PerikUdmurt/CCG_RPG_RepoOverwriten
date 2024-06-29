@@ -22,6 +22,7 @@ namespace CCG.Infrastructure
             _states = new Dictionary<Type, IExitableState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, cardStaticDataService, assetProvider),
+                [typeof(LoadMainMenuState)] = new LoadMainMenuState(this, dataPersistentService, sceneLoader),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, gameFactory,dataPersistentService, hintService, stackService),
                 [typeof(LoadProgressState)] = new LoadProgressState(this, dataPersistentService)
             };

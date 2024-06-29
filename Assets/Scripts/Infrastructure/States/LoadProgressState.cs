@@ -20,7 +20,7 @@ namespace CCG.Infrastructure.States
         {
             LoadProgressOrInitNew();
             
-            _gameStateMachine.Enter<LoadLevelState,SceneName>(SceneName.Gameplay);
+            _gameStateMachine.Enter<LoadMainMenuState>();
         }
 
         public void Exit()

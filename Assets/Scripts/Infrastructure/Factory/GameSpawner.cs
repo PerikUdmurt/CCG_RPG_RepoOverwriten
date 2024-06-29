@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using CCG.Services;
 using CCG.Infrastructure.AssetProvider;
-using System.Threading.Tasks;
 using CCG.Gameplay;
 using CCG.StaticData.Cards;
 using CCG.Infrastructure.ObjectPool;
 using CCG.Data;
 using CCG.Services.SaveLoad;
+using Cysharp.Threading.Tasks;
 
 namespace CCG.Infrastructure.Factory
 {
@@ -37,7 +37,7 @@ namespace CCG.Infrastructure.Factory
 
             _assetProvider.CleanUp();
         }
-        public async Task<HandController> SpawnHand()
+        public async UniTask<HandController> SpawnHand()
         {
             GameObject resource = await _assetProvider.Load<GameObject>(AssetPath.Hand);
             GameObject gameObj = GameObject.Instantiate(resource);
@@ -45,14 +45,14 @@ namespace CCG.Infrastructure.Factory
             return handController;
         }
 
-        public async Task<Card> SpawnCardByStaticData(CardType cardType, Vector3 atPosition)
+        public async UniTask<Card> SpawnCardByStaticData(CardType cardType, Vector3 atPosition)
         {
             CardStaticData staticData = _cardStaticDataService.GetStaticData(cardType);
             CardData data = staticData.ToCardData();
             return await SpawnCard(data, atPosition);
         }
 
-        public async Task<HUD> SpawnHUD()
+        public async UniTask<HUD> SpawnHUD()
         {
             GameObject resource = await _assetProvider.Load<GameObject>(AssetPath.HUD);
             GameObject gameObj = GameObject.Instantiate(resource);
@@ -60,7 +60,7 @@ namespace CCG.Infrastructure.Factory
             return hud;
         }
 
-        public async Task<Card> SpawnCard(CardData cardData, Vector3 atPosition)
+        public async UniTask<Card> SpawnCard(CardData cardData, Vector3 atPosition)
         {
             Card card = await _cardPool.Get();
             card.transform.position = atPosition;
@@ -75,7 +75,7 @@ namespace CCG.Infrastructure.Factory
             _cardPool.Release(card);
         }
 
-        public async Task<CardSlot> SpawnCardSlot()
+        public async UniTask<CardSlot> SpawnCardSlot()
         {
             return await _cardSlotPool.Get();
         }
@@ -85,7 +85,7 @@ namespace CCG.Infrastructure.Factory
             _cardSlotPool.Release(cardSlot);
         }
 
-        public async Task CreateObjectPools()
+        public async UniTask CreateObjectPools()
         {
             _cardPool = new CustomPool<Card>(_cardFactory, AssetPath.Card);
             await _cardPool.Fill(30);

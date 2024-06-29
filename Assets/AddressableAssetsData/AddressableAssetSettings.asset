@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: f7702247510718741a385483b02ae547
   m_currentHash:
     serializedVersion: 2
-    Hash: ec59d6b31dce84da574c2bec94139733
+    Hash: d0f344f26385ccaf2efb61969c0626df
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -92,6 +92,7 @@ MonoBehaviour:
     - CardSprite
     - UI
     - StacksSprites
+    - MainGameScene
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 361c7f5f281499c4699d06398d3fe4c6, type: 2}

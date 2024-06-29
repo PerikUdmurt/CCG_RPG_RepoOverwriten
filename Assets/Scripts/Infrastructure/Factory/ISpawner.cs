@@ -3,7 +3,7 @@ using CCG.Gameplay;
 using CCG.Services.SaveLoad;
 using CCG.StaticData.Cards;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CCG.Infrastructure.Factory
@@ -12,14 +12,14 @@ namespace CCG.Infrastructure.Factory
     {
         List<IDataSaver> DataSavers { get; }
         void CleanUp();
-        Task CreateObjectPools();
+        UniTask CreateObjectPools();
         void DespawnCard(Card card);
         void DespawnCardSlot(CardSlot slot);
-        Task<CardSlot> SpawnCardSlot();
-        Task<HandController> SpawnHand();
+        UniTask<CardSlot> SpawnCardSlot();
+        UniTask<HandController> SpawnHand();
         void ReleaseObjectPools();
-        Task<HUD> SpawnHUD();
-        Task<Card> SpawnCardByStaticData(CardType cardType, Vector3 atPosition);
-        Task<Card> SpawnCard(CardData cardData, Vector3 atPosition);
+        UniTask<HUD> SpawnHUD();
+        UniTask<Card> SpawnCardByStaticData(CardType cardType, Vector3 atPosition);
+        UniTask<Card> SpawnCard(CardData cardData, Vector3 atPosition);
     }
 }

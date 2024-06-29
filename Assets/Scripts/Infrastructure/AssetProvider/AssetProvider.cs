@@ -1,8 +1,6 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace CCG.Infrastructure.AssetProvider
@@ -17,10 +15,13 @@ namespace CCG.Infrastructure.AssetProvider
             Addressables.InitializeAsync();
         }
 
-        public async Task<T> Load<T>(string address) where T : class
+        public UniTask<T> Load<T>(string address) where T : class
         {
             if (_completedCache.TryGetValue(address, out AsyncOperationHandle completedHandle))
-                return completedHandle.Result as T;
+            {
+                return new UniTask<T>(completedHandle.Result as T);
+            }
+                
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(address);
 
             handle.Completed += h =>
@@ -30,13 +31,13 @@ namespace CCG.Infrastructure.AssetProvider
 
             AddHandle(address, handle);
 
-            return await handle.Task;
+            return handle.ToUniTask();
         }
 
-        public async Task<T> Load<T>(AssetReference assetReference) where T: class
+        public UniTask<T> Load<T>(AssetReference assetReference) where T: class
         {
             if (_completedCache.TryGetValue(assetReference.AssetGUID, out AsyncOperationHandle completedHandle))
-                return completedHandle.Result as T;
+                return new UniTask<T>(completedHandle.Result as T);
             AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(assetReference);
 
             handle.Completed += h =>
@@ -46,7 +47,7 @@ namespace CCG.Infrastructure.AssetProvider
 
             AddHandle(assetReference.AssetGUID, handle);
 
-            return await handle.Task;
+            return handle.ToUniTask();
         }
 
         public void CleanUp()

@@ -17,7 +17,6 @@ namespace CCG.UI.Hints
 
         public HintService(CustomFactory<HintUI> hintFactory) 
         { 
-            _currentHintsEntryPoint = _hintEntryPos;
             _hintPool = new CustomPool<HintUI>(hintFactory, AssetPath.Hint);
         }
 
@@ -52,6 +51,7 @@ namespace CCG.UI.Hints
         public void SetHintEntryPos(RectTransform hintEntryPos)
         {
             _hintEntryPos = hintEntryPos;
+            _currentHintsEntryPoint = _hintEntryPos;
         }
     }
 }

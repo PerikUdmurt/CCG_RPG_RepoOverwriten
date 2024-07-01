@@ -14,8 +14,6 @@ namespace CCG.Infrastructure.Factory
         void CleanUp();
         UniTask CreateObjectPools();
         void DespawnCard(Card card);
-        void DespawnCardSlot(CardSlot slot);
-        UniTask<CardSlot> SpawnCardSlot();
         UniTask<HandController> SpawnHand();
         void ReleaseObjectPools();
         UniTask<HUD> SpawnHUD();

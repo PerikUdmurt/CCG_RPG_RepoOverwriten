@@ -21,7 +21,7 @@ namespace CCG.Gameplay
                 card.SetAvailability(false, false, false);
                 StackOfCard stackOfCard = _stackService.GetStack(card.DeckType);
                 stackOfCard.AddToStack(card);
-                card.Movable.MoveTo(stackOfCard.CardTransform.position);
+                card.Movable.MoveToParent(stackOfCard.CardTransform);
                 card.SetAvailability(true, true, true);
             }
 

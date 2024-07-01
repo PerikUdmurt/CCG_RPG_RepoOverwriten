@@ -20,7 +20,6 @@ using Zenject;
             BindBootstraper();
             BindGameStateMachine();
             BindServices();
-
             BindFactories();
             BindSpawner();
         }
@@ -54,7 +53,6 @@ using Zenject;
         private void BindFactories()
         {
             Container.BindFactory<Card, CustomFactory<Card>>().FromFactory<CustomFactory<Card>>().NonLazy();
-            Container.BindFactory<CardSlot, CustomFactory<CardSlot>>().FromFactory<CustomFactory<CardSlot>>().NonLazy();
             Container.BindFactory<HintUI, CustomFactory<HintUI>>().FromFactory<CustomFactory<HintUI>>().NonLazy();
             Container.BindFactory<StackOfCard, CustomFactory<StackOfCard>>().FromFactory<CustomFactory<StackOfCard>>().NonLazy();
     }

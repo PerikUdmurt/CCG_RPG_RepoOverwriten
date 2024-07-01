@@ -1,6 +1,7 @@
 using CCG.Infrastructure.SceneHelper;
 using CCG.Services.SceneLoader;
 using CCG.StaticData.Cards;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ public class GameplayHelperEditor : Editor
 {
     private GamePlaySceneHelper myTarget;
     private CardType cardType;
-    private SceneName sceneName;
+    private int maxCount;
+    private int prepareCardSlot;
     public override void OnInspectorGUI()
     {
         
@@ -20,11 +22,27 @@ public class GameplayHelperEditor : Editor
             DrawDefaultInspector();
             ShowGameSpawner();
             EditorGUILayout.Separator();
-            ShowSceneLoader();
+            ShowCardReciever();
             EditorGUILayout.Separator();
             ShowDataPersistentService();
         }
     }
+
+    private void ShowCardReciever()
+    {
+        GUILayout.Label("GameSpawner", EditorStyles.boldLabel);
+        maxCount = EditorGUILayout.IntField(maxCount);
+        prepareCardSlot = EditorGUILayout.IntField(prepareCardSlot);
+        if (GUILayout.Button("StartCardReciever"))
+        {
+            myTarget.StartCardReciever(maxCount, prepareCardSlot);
+        }
+        if (GUILayout.Button("StopCardReciever"))
+        {
+            myTarget.StopCardReciever();
+        }
+    }
+
     private void ShowGameSpawner()
     {
         GUILayout.Label("GameSpawner", EditorStyles.boldLabel) ;
@@ -33,22 +51,8 @@ public class GameplayHelperEditor : Editor
         {
             myTarget.SpawnCard(cardType);
         }
-
-        if (GUILayout.Button("SpawnCardSlot"))
-        {
-            myTarget.SpawnCardSlot();
-        }
     }
     
-    private void ShowSceneLoader()
-    {
-        GUILayout.Label("SceneLoader", EditorStyles.boldLabel);
-        sceneName = (SceneName)EditorGUILayout.EnumPopup("Scene", sceneName);
-        if (GUILayout.Button("LoadScene"))
-        {
-            myTarget.LoadScene(sceneName);
-        }
-    }
     private void ShowDataPersistentService()
     {
         GUILayout.Label("DataPersistentService", EditorStyles.boldLabel);

@@ -5,10 +5,12 @@ using System.Collections.Generic;
 [Serializable]
 public class GameData
 {
-    public List<CardData> cards;
+    public List<CardData> availableCards;
+    public List<CardData> cardReset;
 
     public GameData()
     {
-        cards = new List<CardData>();
+        availableCards = new List<CardData>();
+        cardReset = new List<CardData>();
     }
 }

@@ -25,11 +25,10 @@ namespace CCG.Services.Stack
         public async Task<StackOfCard> CreateStack(DeckType deckType)
         {
             GameObject resource = await _stackFactory.CreatePrefab(AssetPath.Stack);
-            GameObject gameObj = GameObject.Instantiate(resource, _stackEntryPos + new Vector3(0.65f*_stacks.Count,0f,0f), Quaternion.identity);
-            gameObj.TryGetComponent<StackOfCard>(out StackOfCard stack);
+            resource.TryGetComponent(out StackOfCard stack);
             stack.SetImage(await _assetProvider.Load<Sprite>($"{deckType}Stack"));
-            Debug.Log(_stacks.Count);
-            _stacks.TryAdd(deckType, stack);
+            _stacks.Add(deckType, stack);
+            resource.transform.position = new Vector3(_stackEntryPos.x + (0.65f * (_stacks.Count - 1)), _stackEntryPos.y, _stackEntryPos.z);
             return stack;
         }
 

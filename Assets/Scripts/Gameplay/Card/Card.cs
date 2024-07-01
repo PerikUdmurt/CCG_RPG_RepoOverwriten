@@ -69,7 +69,7 @@ namespace CCG.Gameplay
         public void SaveData(ref GameData gameData)
         {
             CardData cardData = new CardData(this._cardID, Name, CardDescription, DeckType, ValueOfCard, Effects);
-            gameData.cards.Add( cardData );
+            gameData.availableCards.Add( cardData );
         }
 
         public void SetImage(Sprite sprite)

@@ -16,18 +16,16 @@ namespace CCG.Infrastructure.Factory
         private readonly ICardStaticDataService _cardStaticDataService;
         private readonly IAssetProvider _assetProvider;
         private readonly CustomFactory<Card> _cardFactory;
-        private readonly CustomFactory<CardSlot> _cardslotFactory;
 
         private CustomPool<Card> _cardPool = null;
         private CustomPool<CardSlot> _cardSlotPool = null;
         public List<IDataSaver> DataSavers { get; } = new List<IDataSaver>();
 
-        public GameSpawner(ICardStaticDataService moduleStaticDataService, IAssetProvider assetProvider, CustomFactory<Card> customFactory, CustomFactory<CardSlot> cardslotFactory)
+        public GameSpawner(ICardStaticDataService moduleStaticDataService, IAssetProvider assetProvider, CustomFactory<Card> customFactory)
         {
             _cardStaticDataService = moduleStaticDataService;
             _assetProvider = assetProvider;
             _cardFactory = customFactory;
-            _cardslotFactory = cardslotFactory;
         }
 
         public void CleanUp()
@@ -75,22 +73,10 @@ namespace CCG.Infrastructure.Factory
             _cardPool.Release(card);
         }
 
-        public async UniTask<CardSlot> SpawnCardSlot()
-        {
-            return await _cardSlotPool.Get();
-        }
-
-        public void DespawnCardSlot(CardSlot cardSlot)
-        {
-            _cardSlotPool.Release(cardSlot);
-        }
-
         public async UniTask CreateObjectPools()
         {
             _cardPool = new CustomPool<Card>(_cardFactory, AssetPath.Card);
             await _cardPool.Fill(30);
-            _cardSlotPool = new CustomPool<CardSlot>(_cardslotFactory, AssetPath.CardSlot);
-            await _cardSlotPool.Fill(3);
         }
 
         public void ReleaseObjectPools()

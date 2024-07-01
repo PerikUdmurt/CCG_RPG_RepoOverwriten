@@ -19,7 +19,8 @@ namespace CCG.Gameplay
                 { CardState.isDragging, new IsDraggingState(card) },
                 { CardState.inStuckOfCard, new InStuckState(card, stackService) },
                 { CardState.inObjectPool, new InObjectPoolState(card)},
-                { CardState.Init, new InitState(card, assetProvider, stackService)}
+                { CardState.Init, new InitState(card, assetProvider, stackService)},
+                { CardState.InCardReset, new InCardResetState(card)}
             };
         }
         public void Enter(CardState cardState)

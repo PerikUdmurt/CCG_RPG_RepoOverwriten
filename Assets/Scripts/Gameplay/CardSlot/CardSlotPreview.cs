@@ -1,5 +1,6 @@
 using CCG.Gameplay;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CCG.UI
@@ -9,7 +10,7 @@ namespace CCG.UI
         public float alpha;
         public float duration;
 
-        private SpriteRenderer _spriteRenderer;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private void Awake()
         {
@@ -18,6 +19,7 @@ namespace CCG.UI
         }
         public void ShowSetCardPreview(Sprite sprite)
         {
+            _spriteRenderer.color.WithAlpha(0);
             _spriteRenderer.sprite = sprite;
             CardPreviewAnimation(alpha);
         }

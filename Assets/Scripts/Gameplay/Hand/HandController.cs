@@ -1,12 +1,13 @@
 using CCG.Gameplay.Hand;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace CCG.Gameplay
 {
     public class HandController : MonoBehaviour
     {
-        [Header("Cconstraints")]
+        [Header("Constraints")]
         public bool dragIsAvailable = true;
         public bool useIsAvailable = true;
         public bool selectIsAvailable = true;
@@ -31,10 +32,9 @@ namespace CCG.Gameplay
         
         private void RayCheck()
         {
-
-            if (!RayDetect().Equals(default(RaycastHit)))
+            if (!RayDetect().Equals(default(RaycastHit)) && !isDraging)
             {
-                if (RayDetect().collider.gameObject.TryGetComponent(out IUsable usableObj) && Input.GetMouseButtonDown(0) && useIsAvailable && usableObj.isUsable)
+                if (RayDetect().collider.gameObject.TryGetComponent(out IUsable usableObj) && Input.GetMouseButtonUp(0) && useIsAvailable && usableObj.isUsable && _useTrigger)
                 {
                     Use(usableObj);
                 }
@@ -43,13 +43,8 @@ namespace CCG.Gameplay
                 {
                     Select(selectableObj);
                 }
-                else if (currentSelectObj != null)
-                {
-                    Deselect(currentSelectObj);
-                    currentSelectObj = null;
-                }
 
-                if (RayDetect().collider.gameObject.TryGetComponent(out IDragable dragableObj) && Input.GetMouseButtonDown(0) && dragIsAvailable && dragableObj.isDragable)
+                if (RayDetect().collider.gameObject.TryGetComponent(out IDragable dragableObj) && Input.GetMouseButton(0) && dragIsAvailable && dragableObj.isDragable && !_useTrigger)
                 {
                     currentDragableObj = dragableObj;
                     Drag(dragableObj);
@@ -73,7 +68,6 @@ namespace CCG.Gameplay
 
         private RaycastHit RayDetect()
         {
-            
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, float.MaxValue, _usableLayer)) return hitInfo;
             else return default(RaycastHit);
@@ -87,7 +81,6 @@ namespace CCG.Gameplay
             }
             isDraging = true;
             dragableObj.Drag(new Vector3(mousePoint.x, mousePoint.y, 0));
-            Deselect(currentSelectObj);
         }
 
         private void Drop(IDragable dragableObj)
@@ -105,19 +98,28 @@ namespace CCG.Gameplay
                 Deselect(currentSelectObj);
                 currentSelectObj = selectableObj;
                 selectableObj.Select();
+                Debug.Log("Select");
             }
         }
 
         private void Deselect(ISelectable selectableObj)
         {
-            if (currentSelectObj == null) return;
+            if (currentSelectObj == null || isDraging) return;
             currentSelectObj.Deselect();
             currentSelectObj = null;
+            Debug.Log("Deselect");
         }
 
         private void Use(IUsable usableObj)
         {
             usableObj.Use();
+        }
+
+        private IEnumerator UseTimer()
+        {
+            _useTrigger = true;
+            yield return new WaitForSeconds(_useTriggerTime);
+            _useTrigger = false;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace CCG.Gameplay
         CardSlotPreview Preview { get; }
         Transform Transform { get; }
         ICard CurrentCard { get; set; }
+        IMovable Movable { get; }
 
         event Action<ICardSlot,ICard> Filled;
         event Action<ICardSlot> Unfilled;

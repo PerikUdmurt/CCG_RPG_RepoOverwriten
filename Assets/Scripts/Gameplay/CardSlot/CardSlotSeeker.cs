@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System;
-using CCG.UI;
 
 namespace CCG.Gameplay
 {
@@ -76,10 +75,9 @@ namespace CCG.Gameplay
             if (nearestSlot != _nearestSlot) { SlotChanged?.Invoke(nearestSlot); }
             return nearestSlot;
         }
-
         private void OnTriggerEnter(Collider other)
         {
-            if (other.attachedRigidbody.TryGetComponent(out ICardSlot cardSlot))
+            if (other.gameObject.TryGetComponent(out ICardSlot cardSlot))
             {
                 _slots.Add(cardSlot);
             }
@@ -87,7 +85,7 @@ namespace CCG.Gameplay
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.attachedRigidbody.TryGetComponent(out ICardSlot cardSlot))
+            if (other.gameObject.TryGetComponent(out ICardSlot cardSlot))
             {
                 _slots.Remove(cardSlot);
             }

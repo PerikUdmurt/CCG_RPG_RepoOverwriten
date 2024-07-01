@@ -14,6 +14,12 @@ namespace CCG.Gameplay
                 Append(transform.DOMove(endPoint, _moveSpeed, false).
                 SetEase(Ease.OutQuint));
         }
+
+        public void MoveToParent(Transform parent)
+        {
+            MoveTo(parent.position);
+            transform.SetParent(parent);
+        }
     }
 
 }

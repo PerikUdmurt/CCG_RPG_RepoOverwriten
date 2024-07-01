@@ -1,5 +1,6 @@
 using CCG.Infrastructure.Factory;
 using CCG.Infrastructure.States;
+using CCG.Services;
 using CCG.Services.SaveLoad;
 using CCG.Services.SceneLoader;
 using CCG.StaticData.Cards;
@@ -13,14 +14,14 @@ namespace CCG.Infrastructure.SceneHelper
     public class GamePlaySceneHelper : MonoBehaviour
     {
         private ISpawner gameSpawner;
-        private SceneLoader sceneLoader;
         private IDataPersistentService dataPersistentService;
+        private ICardReciever _cardReciever;
 
         [Inject]
-        public void Construct(ISpawner spawner, SceneLoader sceneLoader, IDataPersistentService dataPersistentService)
+        public void Construct(ISpawner spawner, IDataPersistentService dataPersistentService, ICardReciever cardReciever)
         {
             gameSpawner = spawner;
-            this.sceneLoader = sceneLoader;
+            _cardReciever = cardReciever;
             this.dataPersistentService = dataPersistentService;
         }
 
@@ -28,16 +29,6 @@ namespace CCG.Infrastructure.SceneHelper
         {
             gameSpawner.SpawnCardByStaticData(cardType, new Vector3());
             Debug.Log("SpawnedCardByHelper. CardType: " +  cardType);
-        }
-
-        public void SpawnCardSlot()
-        {
-            gameSpawner.SpawnCardSlot();
-        }
-
-        public void LoadScene(SceneName sceneName)
-        {
-            sceneLoader.Load(sceneName);
         }
 
         public void SaveProgress()
@@ -53,6 +44,16 @@ namespace CCG.Infrastructure.SceneHelper
         public void NewProgress() 
         { 
             dataPersistentService.NewGame();
+        }
+
+        public void StartCardReciever(int max, int prep)
+        {
+            _cardReciever.Start(max, prep);
+        }
+
+        public void StopCardReciever()
+        {
+            _cardReciever.CleanUp();
         }
     }
 }

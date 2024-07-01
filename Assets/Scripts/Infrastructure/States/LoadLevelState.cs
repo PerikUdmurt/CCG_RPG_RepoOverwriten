@@ -54,7 +54,7 @@ namespace CCG.Infrastructure.States
 
         private void SpawnCardsByLoadData(GameData gameData, Vector3 atPosition)
         {
-            foreach (CardData cardData in gameData.cards)
+            foreach (CardData cardData in gameData.availableCards)
             {
                 _gameSpawner.SpawnCard(cardData, atPosition);
             }

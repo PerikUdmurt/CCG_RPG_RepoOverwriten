@@ -48,9 +48,10 @@ namespace CCG.Gameplay
             _cardResetList = gamedata.cardReset;
         }
 
-        public void Add()
+        public void Add(ICard card)
         {
-            
+            CardData card = new CardData();
+            _cardResetList.Add()
         }
 
         public void Remove()
